@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using DP.Chess.MAUI.Infrastructure.Services;
+using Microsoft.Extensions.Logging;
 
 namespace DP.Chess.MAUI;
 
@@ -13,7 +14,8 @@ public static class MauiProgram
             {
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-            });
+            })
+            .RegisterDependencies();
 
 #if DEBUG
         builder.Logging.AddDebug();
