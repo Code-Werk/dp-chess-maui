@@ -12,17 +12,17 @@ namespace DP.Chess.MAUI.Features
                 return null;
             }
 
-            switch (colorSet)
+            return colorSet switch
             {
-                case ColorSet.Black: return Colors.Black;
-                case ColorSet.White: return Colors.White;
-                default: throw new NotImplementedException();
-            }
+                ColorSet.Black => Colors.Black,
+                ColorSet.White => Colors.White,
+                _ => throw new ArgumentOutOfRangeException($"color {colorSet} does not exist"),
+            };
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            throw new InvalidOperationException();
+            return Binding.DoNothing;
         }
     }
 }

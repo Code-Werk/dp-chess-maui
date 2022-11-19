@@ -21,7 +21,7 @@ namespace DP.Chess.MAUI.Features
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            throw new InvalidOperationException();
+            return Binding.DoNothing;
         }
     }
 }

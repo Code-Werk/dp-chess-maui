@@ -8,7 +8,7 @@
     <ScrollView HorizontalOptions="Fill" VerticalOptions="Fill">
         <CollectionView ItemsSource="{Binding Cells}"
                         Margin="10" HeightRequest="810"
-                        WidthRequest="810">
+                        WidthRequest="800">
             <CollectionView.ItemsLayout>
                 <GridItemsLayout Orientation="Vertical" Span="8" />
             </CollectionView.ItemsLayout>
