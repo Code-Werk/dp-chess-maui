@@ -2,26 +2,33 @@
 <ContentPage x:Class="DP.Chess.MAUI.Features.MainPage"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:chess="clr-namespace:DP.Chess.MAUI.Features.ChessBoard"
              xmlns:features="clr-namespace:DP.Chess.MAUI.Features"
              x:DataType="features:MainPageViewModel">
-
-    <ScrollView>
-        <VerticalStackLayout Padding="30,0" Spacing="25" VerticalOptions="Center">
-
-            <Image HeightRequest="200" HorizontalOptions="Center"
-                   SemanticProperties.Description="Cute dot net bot waving hi to you!" Source="dotnet_bot.png" />
-
-            <Label FontSize="32" HorizontalOptions="Center"
-                   SemanticProperties.HeadingLevel="Level1" Text="Hello, World!" />
-
-            <Label FontSize="18" HorizontalOptions="Center"
-                   SemanticProperties.Description="Welcome to dot net Multi platform App U I"
-                   SemanticProperties.HeadingLevel="Level2" Text="Welcome to .NET Multi-platform App UI" />
-
-            <Button x:Name="CounterBtn"
-                    Command="{Binding IncreaseCounterCommand}"
-                    HorizontalOptions="Center" SemanticProperties.Hint="Counts the number of times you click"
-                    Text="{Binding Counter}" />
-        </VerticalStackLayout>
+    <ScrollView HorizontalOptions="Fill" VerticalOptions="Fill">
+        <CollectionView ItemsSource="{Binding Cells}"
+                        Margin="10" HeightRequest="810"
+                        WidthRequest="810">
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout Orientation="Vertical" Span="8" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="chess:CellModel">
+                    <Border BackgroundColor="{Binding Converter={StaticResource CellBackgroundConverter}}"
+                            HeightRequest="100" StrokeThickness="0"
+                            WidthRequest="100">
+                        <Border BackgroundColor="{Binding ChessPiece.Color, Converter={StaticResource ColorSetBackgroundColorConverter}}"
+                                HeightRequest="60" StrokeThickness="0"
+                                WidthRequest="50">
+                            <Label FontAttributes="Bold" FontSize="Large"
+                                   HorizontalOptions="Center"
+                                   Text="{Binding ChessPiece.Symbol}"
+                                   TextColor="{Binding ChessPiece.Color, Converter={StaticResource ColorSetTextColorConverter}}"
+                                   VerticalOptions="Center" />
+                        </Border>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
     </ScrollView>
 </ContentPage>
