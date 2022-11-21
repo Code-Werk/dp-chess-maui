@@ -33,7 +33,7 @@ namespace DP.Chess.MAUI.Features.ChessBoard
 
         public override int GetHashCode()
         {
-            return (X, Y).GetHashCode();
+            return HashCode.Combine(X, Y);
         }
 
         public override string ToString()

@@ -4,12 +4,12 @@
     {
         ColorSet Color { get; }
 
-        Position CurrentPosition { get; }
+        Position CurrentPosition { get; set; }
 
         Position[] PossibleMoveSet { get; }
 
         string Symbol { get; }
 
-        bool Move(Position p);
+        void UpdatePossibleMoveSet();
     }
 }

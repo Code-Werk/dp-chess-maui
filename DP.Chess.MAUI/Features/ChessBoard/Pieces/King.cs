@@ -7,7 +7,7 @@
         {
         }
 
-        protected override Position[] UpdateMoveSet()
+        public override void UpdatePossibleMoveSet()
         {
             List<Position> moveSet = new();
 
@@ -27,7 +27,7 @@
                     }
                 }
 
-            return moveSet.ToArray();
+            PossibleMoveSet = moveSet.ToArray();
         }
     }
 }

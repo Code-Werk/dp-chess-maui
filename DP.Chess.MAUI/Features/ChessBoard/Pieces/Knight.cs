@@ -7,9 +7,9 @@
         {
         }
 
-        protected override Position[] UpdateMoveSet()
+        public override void UpdatePossibleMoveSet()
         {
-            return new Position[0];
+            PossibleMoveSet = new Position[0];
         }
     }
 }

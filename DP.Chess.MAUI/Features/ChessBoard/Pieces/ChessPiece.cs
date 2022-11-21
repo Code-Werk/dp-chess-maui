@@ -14,29 +14,17 @@
             CurrentPosition = currentPosition;
             Symbol = symbol;
 
-            PossibleMoveSet = UpdateMoveSet();
+            //PossibleMoveSet = UpdateMoveSet();
         }
 
         public ColorSet Color { get; }
 
-        public Position CurrentPosition { get; private set; }
+        public Position CurrentPosition { get; set; }
 
-        public Position[] PossibleMoveSet { get; private set; }
+        public Position[] PossibleMoveSet { get; protected set; }
 
         public string Symbol { get; }
 
-        public bool Move(Position p)
-        {
-            if (!PossibleMoveSet.Contains(p))
-            {
-                return false;
-            }
-
-            CurrentPosition = p;
-            PossibleMoveSet = UpdateMoveSet();
-            return true;
-        }
-
-        protected abstract Position[] UpdateMoveSet();
+        public abstract void UpdatePossibleMoveSet();
     }
 }
