@@ -70,10 +70,11 @@ namespace DP.Chess.MAUI.Features
         private ICommand _chessMoveCommand;
 
         /// <summary>
-        /// Gets the command that is executed to make a chess move (Schachzug) in the game.
-        /// A complete chess turn executes this command twice, once to select the piece that
-        /// should be moved, and a second time to move th piece to the desired position. The
-        /// move may contain taking an opponent piece or not.
+        /// Gets the command that is executed to make a chess move (Schachzug)
+        /// in the game. A complete chess turn executes this command twice, once
+        /// to select the piece that should be moved, and a second time to move
+        /// th piece to the desired position. The move may contain taking an
+        /// opponent piece or not.
         /// </summary>
         public ICommand ChessMoveCommand => _chessMoveCommand ??= new RelayCommand<CellModel>(DoChessMove);
 
