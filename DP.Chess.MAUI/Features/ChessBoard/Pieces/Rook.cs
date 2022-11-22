@@ -7,6 +7,11 @@
         {
         }
 
+        public override bool CheckTargetPosition(CellModel[] board, CellModel targetCell)
+        {
+            throw new NotImplementedException();
+        }
+
         public override void UpdatePossibleMoveSet()
         {
             IList<Position> moveSet = new List<Position>();

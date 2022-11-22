@@ -7,8 +7,19 @@
         {
         }
 
+        public override bool CheckTargetPosition(CellModel[] board, CellModel targetCell)
+        {
+            IChessPiece piece = board[targetCell.Position.ToBoardIndex()].ChessPiece;
+
+            // the knight can jump over other pieces in its way,
+            // thus we do not need to check for that
+            return piece == null || Color != piece.Color;
+        }
+
         public override void UpdatePossibleMoveSet()
         {
+            // add any possible 2 in x and 1 in y, add any possible 2 in y and 1 in x
+
             PossibleMoveSet = new Position[0];
         }
     }

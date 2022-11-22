@@ -1,5 +1,5 @@
 ﻿using DP.Chess.MAUI.Features;
-using DP.Chess.MAUI.Features.ChessBoard.Services;
+using DP.Chess.MAUI.Features.ChessBoard;
 
 namespace DP.Chess.MAUI.Infrastructure.Services
 {

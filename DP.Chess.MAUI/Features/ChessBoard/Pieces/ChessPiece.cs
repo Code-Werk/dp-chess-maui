@@ -13,8 +13,6 @@
             Color = color;
             CurrentPosition = currentPosition;
             Symbol = symbol;
-
-            //PossibleMoveSet = UpdateMoveSet();
         }
 
         public ColorSet Color { get; }
@@ -24,6 +22,8 @@
         public Position[] PossibleMoveSet { get; protected set; }
 
         public string Symbol { get; }
+
+        public abstract bool CheckTargetPosition(CellModel[] board, CellModel targetCell);
 
         public abstract void UpdatePossibleMoveSet();
     }

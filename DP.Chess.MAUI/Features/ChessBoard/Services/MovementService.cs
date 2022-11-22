@@ -1,6 +1,6 @@
 ﻿using DP.Chess.MAUI.Features.ChessBoard.Pieces;
 
-namespace DP.Chess.MAUI.Features.ChessBoard.Services
+namespace DP.Chess.MAUI.Features.ChessBoard
 {
     public class MovementService : IMovementService
     {
@@ -13,14 +13,14 @@ namespace DP.Chess.MAUI.Features.ChessBoard.Services
                 return false;
             }
 
-            // TODO check if path is blocked
-
-            throw new NotImplementedException();
+            return piece.CheckTargetPosition(board, targetCell);
         }
 
-        public void Move(IChessPiece piece, Position destination)
+        public void Move(IChessPiece piece, CellModel sourceCell, CellModel targetCell)
         {
-            piece.CurrentPosition = destination;
+            piece.CurrentPosition = targetCell.Position;
+            sourceCell.ChessPiece = null;
+            targetCell.ChessPiece = piece;
 
             // TODO: do we need to check if an opponent figure was taken?
         }

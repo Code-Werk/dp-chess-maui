@@ -7,6 +7,13 @@
         {
         }
 
+        public override bool CheckTargetPosition(CellModel[] board, CellModel targetCell)
+        {
+            IChessPiece piece = board[targetCell.Position.ToBoardIndex()].ChessPiece;
+
+            return piece == null || Color != piece.Color;
+        }
+
         public override void UpdatePossibleMoveSet()
         {
             List<Position> moveSet = new();

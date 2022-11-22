@@ -10,6 +10,8 @@
 
         string Symbol { get; }
 
+        bool CheckTargetPosition(CellModel[] board, CellModel targetCell);
+
         void UpdatePossibleMoveSet();
     }
 }

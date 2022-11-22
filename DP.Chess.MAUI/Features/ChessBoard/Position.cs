@@ -36,6 +36,11 @@ namespace DP.Chess.MAUI.Features.ChessBoard
             return HashCode.Combine(X, Y);
         }
 
+        public int ToBoardIndex()
+        {
+            return Y * 8 + X;
+        }
+
         public override string ToString()
         {
             return $"({X},{Y})";

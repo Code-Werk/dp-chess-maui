@@ -2,7 +2,6 @@
 using CommunityToolkit.Mvvm.Input;
 using DP.Chess.MAUI.Features.ChessBoard;
 using DP.Chess.MAUI.Features.ChessBoard.Pieces;
-using DP.Chess.MAUI.Features.ChessBoard.Services;
 using System.Windows.Input;
 
 namespace DP.Chess.MAUI.Features
@@ -36,8 +35,8 @@ namespace DP.Chess.MAUI.Features
         {
             for (int x = 0; x < 8; x++)
             {
-                Cells[8 + x].ChessPiece = new Pawn(ColorSet.Black, Cells[x].Position);
-                Cells[6 * 8 + x].ChessPiece = new Pawn(ColorSet.White, Cells[x].Position);
+                Cells[8 + x].ChessPiece = new Pawn(ColorSet.Black, Cells[8 + x].Position);
+                Cells[6 * 8 + x].ChessPiece = new Pawn(ColorSet.White, Cells[6 * 8 + x].Position);
             }
 
             Cells[0].ChessPiece = new Rook(ColorSet.Black, Cells[0].Position);
@@ -73,10 +72,11 @@ namespace DP.Chess.MAUI.Features
         /// Gets the command that is executed to make a chess move (Schachzug)
         /// in the game. A complete chess turn executes this command twice, once
         /// to select the piece that should be moved, and a second time to move
-        /// th piece to the desired position. The move may contain taking an
+        /// the piece to the desired position. The move may contain taking an
         /// opponent piece or not.
         /// </summary>
-        public ICommand ChessMoveCommand => _chessMoveCommand ??= new RelayCommand<CellModel>(DoChessMove);
+        public ICommand ChessMoveCommand => _chessMoveCommand
+            ??= new RelayCommand<CellModel>(DoChessMove);
 
         private void DoChessMove(CellModel cell)
         {
@@ -94,17 +94,22 @@ namespace DP.Chess.MAUI.Features
                 return;
             }
 
-            if (!_movementService.CanMove(Cells, _selectedPiece, cell))
+            try
             {
-                // TODO: notification (not a valid position yada yada)
-                return;
+                if (!_movementService.CanMove(Cells, _selectedPiece, cell))
+                {
+                    // TODO: notification (not a valid position yada yada)
+                    return;
+                }
+
+                // an empty field or one occupied by an opponent was selected
+                _movementService.Move(_selectedPiece, Cells[_selectedPiece.CurrentPosition.ToBoardIndex()], cell);
             }
-
-            // an empty field or one occupied by an opponent was selected
-            _movementService.Move(_selectedPiece, cell.Position);
-
-            // reset the selected piece for the next move
-            _selectedPiece = null;
+            finally
+            {
+                // reset the selected piece for the next move
+                _selectedPiece = null;
+            }
         }
 
         #endregion ChessMoveCommand
