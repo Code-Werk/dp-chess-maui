@@ -80,6 +80,11 @@ namespace DP.Chess.MAUI.Features
 
         private void DoChessMove(CellModel cell)
         {
+            if (_selectedPiece == null && cell.ChessPiece == null)
+            {
+                return;
+            }
+
             // chess piece to move was selected for the first time this move
             if (_selectedPiece == null)
             {

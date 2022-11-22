@@ -9,11 +9,11 @@
 
         public override bool CheckTargetPosition(CellModel[] board, CellModel targetCell)
         {
-            IChessPiece piece = board[targetCell.Position.ToBoardIndex()].ChessPiece;
+            IChessPiece pieceAtTarget = board[targetCell.Position.ToBoardIndex()].ChessPiece;
 
             // the knight can jump over other pieces in its way,
             // thus we do not need to check for that
-            return piece == null || Color != piece.Color;
+            return pieceAtTarget == null || Color != pieceAtTarget.Color;
         }
 
         public override void UpdatePossibleMoveSet()

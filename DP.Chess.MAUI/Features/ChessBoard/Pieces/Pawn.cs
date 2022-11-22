@@ -13,31 +13,31 @@
         public override bool CheckTargetPosition(CellModel[] board, CellModel targetCell)
         {
             Position targetPosition = targetCell.Position;
-            IChessPiece piece = board[targetPosition.ToBoardIndex()].ChessPiece;
+            IChessPiece pieceAtTarget = board[targetPosition.ToBoardIndex()].ChessPiece;
 
             // pawn is moving to take an enemy
             if (targetPosition.X != CurrentPosition.X)
             {
-                return piece != null && Color != piece.Color;
+                return pieceAtTarget != null && Color != pieceAtTarget.Color;
             }
 
             // normal move
             bool canMove = true;
-            canMove |= piece == null;
+            canMove &= pieceAtTarget == null;
 
             // check special case where pawn can move upwards for two rows
             if (Color == ColorSet.White && targetPosition.Y == CurrentPosition.Y - 2)
             {
                 // check if there's a piece on the cell in between
-                piece = board[targetPosition.ToBoardIndex() - 8].ChessPiece;
-                canMove |= piece == null;
+                pieceAtTarget = board[targetPosition.ToBoardIndex() - 8].ChessPiece;
+                canMove &= pieceAtTarget == null;
             }
 
             if (Color == ColorSet.Black && targetPosition.Y == CurrentPosition.Y + 2)
             {
                 // check if there's a piece on the cell in between
-                piece = board[targetPosition.ToBoardIndex() + 8].ChessPiece;
-                canMove |= piece == null;
+                pieceAtTarget = board[targetPosition.ToBoardIndex() + 8].ChessPiece;
+                canMove &= pieceAtTarget == null;
             }
 
             return canMove;

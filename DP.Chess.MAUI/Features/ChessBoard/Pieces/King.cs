@@ -9,9 +9,9 @@
 
         public override bool CheckTargetPosition(CellModel[] board, CellModel targetCell)
         {
-            IChessPiece piece = board[targetCell.Position.ToBoardIndex()].ChessPiece;
+            IChessPiece pieceAtTarget = board[targetCell.Position.ToBoardIndex()].ChessPiece;
 
-            return piece == null || Color != piece.Color;
+            return pieceAtTarget == null || Color != pieceAtTarget.Color;
         }
 
         public override void UpdatePossibleMoveSet()
