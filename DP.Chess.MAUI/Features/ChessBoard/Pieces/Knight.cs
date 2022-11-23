@@ -18,9 +18,55 @@
 
         public override void UpdatePossibleMoveSet()
         {
-            // add any possible 2 in x and 1 in y, add any possible 2 in y and 1 in x
+            IList<Position> moveSet = new List<Position>();
 
-            PossibleMoveSet = new Position[0];
+            // TODO: is there a better way?
+
+            if (IsInRange(2, -1))
+            {
+                moveSet.Add(new Position(CurrentPosition.X + 2, CurrentPosition.Y - 1));
+            }
+            if (IsInRange(2, 1))
+            {
+                moveSet.Add(new Position(CurrentPosition.X + 2, CurrentPosition.Y + 1));
+            }
+            if (IsInRange(-2, -1))
+            {
+                moveSet.Add(new Position(CurrentPosition.X - 2, CurrentPosition.Y - 1));
+            }
+            if (IsInRange(-2, 1))
+            {
+                moveSet.Add(new Position(CurrentPosition.X - 2, CurrentPosition.Y + 1));
+            }
+            if (IsInRange(-1, 2))
+            {
+                moveSet.Add(new Position(CurrentPosition.X - 1, CurrentPosition.Y + 2));
+            }
+            if (IsInRange(1, 2))
+            {
+                moveSet.Add(new Position(CurrentPosition.X + 1, CurrentPosition.Y + 2));
+            }
+            if (IsInRange(-1, -2))
+            {
+                moveSet.Add(new Position(CurrentPosition.X - 1, CurrentPosition.Y - 2));
+            }
+            if (IsInRange(1, -2))
+            {
+                moveSet.Add(new Position(CurrentPosition.X + 1, CurrentPosition.Y - 2));
+            }
+
+            PossibleMoveSet = moveSet.ToArray();
+        }
+
+        private bool IsInRange(int moveX, int moveY)
+        {
+            int newX = CurrentPosition.X + moveX;
+            bool validX = newX >= 0 && newX <= 7;
+
+            int newY = CurrentPosition.Y + moveY;
+            bool validY = newY >= 0 && newY <= 7;
+
+            return validX && validY;
         }
     }
 }

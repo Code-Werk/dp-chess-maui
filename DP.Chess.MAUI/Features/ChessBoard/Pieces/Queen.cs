@@ -9,70 +9,29 @@
 
         public override bool CheckTargetPosition(CellModel[] board, CellModel targetCell)
         {
-            throw new NotImplementedException();
+            bool canMove = true;
+            Position targetPosition = targetCell.Position;
+            IChessPiece pieceAtTarget = board[targetPosition.ToBoardIndex()].ChessPiece;
+
+            canMove &= pieceAtTarget == null || Color != pieceAtTarget.Color;
+            if (CurrentPosition.X == targetPosition.X || CurrentPosition.Y == targetPosition.Y)
+            {
+                canMove &= PieceMovementTools.CheckStraightMovement(this, board, targetPosition);
+            }
+            else
+            {
+                canMove &= PieceMovementTools.CheckDiagonalMovement(this, board, targetPosition);
+            }
+
+            return canMove;
         }
 
         public override void UpdatePossibleMoveSet()
         {
-            IList<Position> moveSet = new List<Position>();
+            List<Position> moveSet = new();
 
-            // straight up/down and left/right
-            for (int i = 0; i < 8; i++)
-            {
-                Position px = new(CurrentPosition.X, i);
-                Position py = new(i, CurrentPosition.Y);
-
-                if (px != CurrentPosition)
-                {
-                    moveSet.Add(px);
-                }
-                if (py != CurrentPosition)
-                {
-                    moveSet.Add(py);
-                }
-            }
-
-            // TODO: clean-up code
-
-            // to top left
-            int moveableX = CurrentPosition.X;
-            int moveableY = CurrentPosition.Y;
-            while (moveableX > 0 || moveableY > 0)
-            {
-                moveableX--;
-                moveableY--;
-                moveSet.Add(new Position(moveableX, moveableX));
-            }
-
-            // to top right
-            moveableX = CurrentPosition.X;
-            moveableY = CurrentPosition.Y;
-            while (moveableX > 0 || moveableY < 7)
-            {
-                moveableX--;
-                moveableY++;
-                moveSet.Add(new Position(moveableX, moveableX));
-            }
-
-            // to bottom left
-            moveableX = CurrentPosition.X;
-            moveableY = CurrentPosition.Y;
-            while (moveableX < 7 || moveableY > 0)
-            {
-                moveableX++;
-                moveableY--;
-                moveSet.Add(new Position(moveableX, moveableX));
-            }
-
-            // to bottom right
-            moveableX = CurrentPosition.X;
-            moveableY = CurrentPosition.Y;
-            while (moveableX < 7 || moveableY < 7)
-            {
-                moveableX++;
-                moveableY++;
-                moveSet.Add(new Position(moveableX, moveableX));
-            }
+            moveSet.AddRange(PieceMovementTools.BuildStraightMoveSet(this));
+            moveSet.AddRange(PieceMovementTools.BuildDiagonalMoveSet(this));
 
             PossibleMoveSet = moveSet.ToArray();
         }
