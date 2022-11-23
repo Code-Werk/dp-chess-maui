@@ -64,6 +64,14 @@ namespace DP.Chess.MAUI.Features
             Cells[7 * 8 + 4].ChessPiece = new Queen(ColorSet.White, Cells[7 * 8 + 4].Position);
         }
 
+        private void RemoveCellSelection()
+        {
+            foreach (CellModel cell in Cells)
+            {
+                cell.IsSelected = false;
+            }
+        }
+
         #region ChessMoveCommand
 
         private ICommand _chessMoveCommand;
@@ -82,6 +90,7 @@ namespace DP.Chess.MAUI.Features
         {
             if (_selectedPiece == null && cell.ChessPiece == null)
             {
+                RemoveCellSelection();
                 return;
             }
 
@@ -89,6 +98,8 @@ namespace DP.Chess.MAUI.Features
             if (_selectedPiece == null)
             {
                 _selectedPiece = cell.ChessPiece;
+                RemoveCellSelection();
+                cell.IsSelected = true;
                 return;
             }
 
@@ -96,6 +107,8 @@ namespace DP.Chess.MAUI.Features
             if (_selectedPiece.Color == cell.ChessPiece?.Color)
             {
                 _selectedPiece = cell.ChessPiece;
+                RemoveCellSelection();
+                cell.IsSelected = true;
                 return;
             }
 
@@ -113,6 +126,7 @@ namespace DP.Chess.MAUI.Features
             finally
             {
                 // reset the selected piece for the next move
+                RemoveCellSelection();
                 _selectedPiece = null;
             }
         }

@@ -17,7 +17,17 @@
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="chess:CellModel">
-                    <Border BackgroundColor="{Binding Converter={StaticResource CellBackgroundConverter}}" HeightRequest="100" WidthRequest="100">
+                    <Border HeightRequest="100" WidthRequest="100">
+                        <Border.Style>
+                            <Style TargetType="Border">
+                                <Setter Property="Background" Value="{Binding Converter={StaticResource CellBackgroundConverter}}" />
+                                <Style.Triggers>
+                                    <DataTrigger TargetType="Border" Binding="{Binding IsSelected}" Value="True">
+                                        <Setter Property="Background" Value="LightBlue" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
                         <Border BackgroundColor="{Binding ChessPiece.Color, Converter={StaticResource ColorSetBackgroundColorConverter}}"
                                 HeightRequest="60" StrokeThickness="0"
                                 WidthRequest="50">
