@@ -5,5 +5,5 @@
        xmlns:features="clr-namespace:DP.Chess.MAUI.Features"
        Shell.FlyoutBehavior="Disabled">
 
-    <ShellContent Title="Home" ContentTemplate="{DataTemplate features:MainPage}" Route="MainPage" />
+    <ShellContent Title="Chess" ContentTemplate="{DataTemplate features:MainPage}" Route="MainPage" />
 </Shell>

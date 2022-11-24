@@ -14,7 +14,7 @@
             IChessPiece pieceAtTarget = board[targetPosition.ToBoardIndex()].ChessPiece;
 
             canMove &= pieceAtTarget == null || Color != pieceAtTarget.Color;
-            canMove &= PieceMovementTools.CheckStraightMovement(this, board, targetPosition);
+            canMove &= PieceMovementTools.CheckDiagonalMovement(this, board, targetPosition);
 
             return canMove;
         }
