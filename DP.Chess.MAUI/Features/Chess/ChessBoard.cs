@@ -1,15 +1,19 @@
-﻿using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Maui.Core;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using DP.Chess.MAUI.Features.Chess.Pieces;
 using System.Collections;
 using System.Windows.Input;
 
 namespace DP.Chess.MAUI.Features.Chess
 {
-    public class ChessBoard : IEnumerable<IChessCell>, IChessBoard
+    public class ChessBoard : ObservableObject, IEnumerable<IChessCell>, IChessBoard
     {
         private readonly IChessCell[] _cells;
         private readonly IChessBoardMovementService _movementService;
 
+        private ColorSet _currentPlayer;
         private IChessPiece _selectedPiece;
 
         public ChessBoard(IChessBoardMovementService movementService)
@@ -25,9 +29,16 @@ namespace DP.Chess.MAUI.Features.Chess
                     _cells[ToBoardIndex(position)] = new ChessCellModel(position);
                 }
             }
+            CurrentPlayer = ColorSet.White;
 
             // TODO: ChessBoardFactory
             InitBoard();
+        }
+
+        public ColorSet CurrentPlayer
+        {
+            get => _currentPlayer;
+            set => SetProperty(ref _currentPlayer, value);
         }
 
         public IChessCell this[int x, int y] => _cells[y * 8 + x];
@@ -100,7 +111,8 @@ namespace DP.Chess.MAUI.Features.Chess
 
         private void DoChessMove(IChessCell cell)
         {
-            if (_selectedPiece == null && cell.Piece == null)
+            if (_selectedPiece == null
+                && (cell.Piece == null || cell.Piece.Color != CurrentPlayer))
             {
                 RemoveCellSelection();
                 return;
@@ -128,12 +140,16 @@ namespace DP.Chess.MAUI.Features.Chess
             {
                 if (!_movementService.CanMove(this, _selectedPiece, cell))
                 {
-                    // TODO: notification (not a valid position yada yada)
+                    IToast toast = Toast.Make("Invalid move.", ToastDuration.Short);
+                    toast.Show();
                     return;
                 }
 
                 // an empty field or one occupied by an opponent was selected
                 _movementService.Move(_selectedPiece, this[_selectedPiece.CurrentPosition], cell);
+                CurrentPlayer = CurrentPlayer == ColorSet.White
+                    ? ColorSet.Black
+                    : ColorSet.White;
             }
             finally
             {
@@ -144,5 +160,63 @@ namespace DP.Chess.MAUI.Features.Chess
         }
 
         #endregion ChessMoveCommand
+
+        #region LoadCommand
+
+        private ICommand _loadCommand;
+
+        public ICommand LoadCommand => _loadCommand
+            ??= new AsyncRelayCommand(LoadGame);
+
+        private async Task LoadGame()
+        {
+            await Task.CompletedTask;
+            throw new NotImplementedException();
+        }
+
+        #endregion LoadCommand
+
+        #region UndoCommand
+
+        private ICommand _undoCommand;
+
+        public ICommand UndoCommand => _undoCommand
+            ??= new RelayCommand(UndoMove);
+
+        private void UndoMove()
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion UndoCommand
+
+        #region RedoCommand
+
+        private ICommand _redoCommand;
+
+        public ICommand RedoCommand => _redoCommand
+            ??= new RelayCommand(RedoMove);
+
+        private void RedoMove()
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion RedoCommand
+
+        #region SaveCommand
+
+        private ICommand _saveCommand;
+
+        public ICommand SaveCommand => _saveCommand
+            ??= new AsyncRelayCommand(SaveGame);
+
+        private async Task SaveGame()
+        {
+            await Task.CompletedTask;
+            throw new NotImplementedException();
+        }
+
+        #endregion SaveCommand
     }
 }
