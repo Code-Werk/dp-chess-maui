@@ -1,4 +1,4 @@
-﻿namespace DP.Chess.MAUI.Features.ChessBoard.Pieces
+﻿namespace DP.Chess.MAUI.Features.Chess.Pieces
 {
     public static class PieceMovementTools
     {
@@ -71,11 +71,9 @@
             return moveSet.ToArray();
         }
 
-        public static bool CheckDiagonalMovement(IChessPiece piece, CellModel[] board, Position targetPosition)
+        public static bool CheckDiagonalMovement(IChessPiece piece, IChessBoard board, Position targetPosition)
         {
             bool canMove = true;
-            int currentBoardIndex = piece.CurrentPosition.ToBoardIndex();
-            int targetBoardIndex = targetPosition.ToBoardIndex();
 
             // move left
             if (targetPosition.X < piece.CurrentPosition.X)
@@ -83,17 +81,17 @@
                 // move up
                 if (targetPosition.Y < piece.CurrentPosition.Y)
                 {
-                    for (int i = currentBoardIndex - 9; i > targetBoardIndex; i -= 9) // y: -8, x: -1
+                    for (int i = 1; i < piece.CurrentPosition.X - targetPosition.X; i++)
                     {
-                        canMove &= board[i].ChessPiece == null;
+                        canMove &= board[piece.CurrentPosition.X - i, piece.CurrentPosition.Y - i].Piece == null;
                     }
                 }
                 // move down
                 else
                 {
-                    for (int i = currentBoardIndex + 7; i < targetBoardIndex; i += 7) // y: +8, x: -1
+                    for (int i = 1; i < piece.CurrentPosition.X - targetPosition.X; i++)
                     {
-                        canMove &= board[i].ChessPiece == null;
+                        canMove &= board[piece.CurrentPosition.X - i, piece.CurrentPosition.Y + i].Piece == null;
                     }
                 }
             }
@@ -103,17 +101,17 @@
                 // move up
                 if (targetPosition.Y < piece.CurrentPosition.Y)
                 {
-                    for (int i = currentBoardIndex - 7; i > targetBoardIndex; i -= 7) // y: -8, x: +1
+                    for (int i = 1; i < targetPosition.X - piece.CurrentPosition.X; i++)
                     {
-                        canMove &= board[i].ChessPiece == null;
+                        canMove &= board[piece.CurrentPosition.X + i, piece.CurrentPosition.Y - i].Piece == null;
                     }
                 }
                 // move down
                 else
                 {
-                    for (int i = currentBoardIndex + 9; i < targetBoardIndex; i += 9) // y: +8, x: +1
+                    for (int i = 1; i < targetPosition.X - piece.CurrentPosition.X; i++)
                     {
-                        canMove &= board[i].ChessPiece == null;
+                        canMove &= board[piece.CurrentPosition.X + i, piece.CurrentPosition.Y + i].Piece == null;
                     }
                 }
             }
@@ -121,42 +119,40 @@
             return canMove;
         }
 
-        public static bool CheckStraightMovement(IChessPiece piece, CellModel[] board, Position targetPosition)
+        public static bool CheckStraightMovement(IChessPiece piece, IChessBoard board, Position target)
         {
             bool canMove = true;
-            int currentBoardIndex = piece.CurrentPosition.ToBoardIndex();
-            int targetBoardIndex = targetPosition.ToBoardIndex();
 
             // move left
-            if (targetPosition.X < piece.CurrentPosition.X)
+            if (target.X < piece.CurrentPosition.X)
             {
-                for (int i = currentBoardIndex - 1; i > targetBoardIndex; i--)
+                for (int x = piece.CurrentPosition.X - 1; x > target.X; x--)
                 {
-                    canMove &= board[i].ChessPiece == null;
+                    canMove &= board[x, piece.CurrentPosition.Y].Piece == null;
                 }
             }
             // move right
-            else if (targetPosition.X > piece.CurrentPosition.X)
+            else if (target.X > piece.CurrentPosition.X)
             {
-                for (int i = currentBoardIndex + 1; i < targetBoardIndex; i++)
+                for (int x = piece.CurrentPosition.X + 1; x < target.X; x++)
                 {
-                    canMove &= board[i].ChessPiece == null;
+                    canMove &= board[x, piece.CurrentPosition.Y].Piece == null;
                 }
             }
             // move up
-            else if (targetPosition.Y < piece.CurrentPosition.Y)
+            else if (target.Y < piece.CurrentPosition.Y)
             {
-                for (int i = currentBoardIndex - 8; i > targetBoardIndex; i -= 8)
+                for (int y = piece.CurrentPosition.Y - 1; y > target.Y; y--)
                 {
-                    canMove &= board[i].ChessPiece == null;
+                    canMove &= board[piece.CurrentPosition.X, y].Piece == null;
                 }
             }
             // move down
             else
             {
-                for (int i = currentBoardIndex + 8; i < targetBoardIndex; i += 8)
+                for (int y = piece.CurrentPosition.Y + 1; y < target.Y; y++)
                 {
-                    canMove &= board[i].ChessPiece == null;
+                    canMove &= board[piece.CurrentPosition.X, y].Piece == null;
                 }
             }
 

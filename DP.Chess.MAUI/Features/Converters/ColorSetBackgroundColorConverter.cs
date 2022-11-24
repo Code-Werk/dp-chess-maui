@@ -1,4 +1,4 @@
-﻿using DP.Chess.MAUI.Features.ChessBoard.Pieces;
+﻿using DP.Chess.MAUI.Features.Chess;
 using System.Globalization;
 
 namespace DP.Chess.MAUI.Features

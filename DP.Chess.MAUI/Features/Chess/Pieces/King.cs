@@ -1,4 +1,4 @@
-﻿namespace DP.Chess.MAUI.Features.ChessBoard.Pieces
+﻿namespace DP.Chess.MAUI.Features.Chess.Pieces
 {
     public class King : ChessPiece, IChessPiece
     {
@@ -7,9 +7,9 @@
         {
         }
 
-        public override bool CheckTargetPosition(CellModel[] board, CellModel targetCell)
+        public override bool CheckTargetPosition(IChessBoard board, IChessCell targetCell)
         {
-            IChessPiece pieceAtTarget = board[targetCell.Position.ToBoardIndex()].ChessPiece;
+            IChessPiece pieceAtTarget = board[targetCell.Position].Piece;
 
             return pieceAtTarget == null || Color != pieceAtTarget.Color;
         }

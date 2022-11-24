@@ -1,4 +1,4 @@
-﻿namespace DP.Chess.MAUI.Features.ChessBoard.Pieces
+﻿namespace DP.Chess.MAUI.Features.Chess.Pieces
 {
     public class Rook : ChessPiece, IChessPiece
     {
@@ -7,11 +7,11 @@
         {
         }
 
-        public override bool CheckTargetPosition(CellModel[] board, CellModel targetCell)
+        public override bool CheckTargetPosition(IChessBoard board, IChessCell targetCell)
         {
             bool canMove = true;
             Position targetPosition = targetCell.Position;
-            IChessPiece pieceAtTarget = board[targetPosition.ToBoardIndex()].ChessPiece;
+            IChessPiece pieceAtTarget = board[targetPosition].Piece;
 
             canMove &= pieceAtTarget == null || Color != pieceAtTarget?.Color;
             canMove &= PieceMovementTools.CheckStraightMovement(this, board, targetPosition);

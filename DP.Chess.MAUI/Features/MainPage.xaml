@@ -2,44 +2,10 @@
 <ContentPage x:Class="DP.Chess.MAUI.Features.MainPage"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:chess="clr-namespace:DP.Chess.MAUI.Features.ChessBoard"
+             xmlns:chess="clr-namespace:DP.Chess.MAUI.Features.Chess"
              xmlns:features="clr-namespace:DP.Chess.MAUI.Features"
              x:DataType="features:MainPageViewModel">
     <ScrollView HorizontalOptions="Fill" VerticalOptions="Fill">
-        <CollectionView x:Name="ChessBoard"
-                        ItemsSource="{Binding Cells}"
-                        Margin="10" HeightRequest="810"
-                        SelectionChangedCommand="{Binding ChessMoveCommand}"
-                        SelectionChangedCommandParameter="{Binding SelectedItem, Source={x:Reference ChessBoard}}"
-                        SelectionMode="Single" WidthRequest="800">
-            <CollectionView.ItemsLayout>
-                <GridItemsLayout Orientation="Vertical" Span="8" />
-            </CollectionView.ItemsLayout>
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="chess:CellModel">
-                    <Border HeightRequest="100" WidthRequest="100">
-                        <Border.Style>
-                            <Style TargetType="Border">
-                                <Setter Property="Background" Value="{Binding Converter={StaticResource CellBackgroundConverter}}" />
-                                <Style.Triggers>
-                                    <DataTrigger TargetType="Border" Binding="{Binding IsSelected}" Value="True">
-                                        <Setter Property="Background" Value="LightBlue" />
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Border.Style>
-                        <Border BackgroundColor="{Binding ChessPiece.Color, Converter={StaticResource ColorSetBackgroundColorConverter}}"
-                                HeightRequest="60" StrokeThickness="0"
-                                WidthRequest="50">
-                            <Label FontAttributes="Bold" FontSize="Large"
-                                   HorizontalOptions="Center"
-                                   Text="{Binding ChessPiece.Symbol}"
-                                   TextColor="{Binding ChessPiece.Color, Converter={StaticResource ColorSetTextColorConverter}}"
-                                   VerticalOptions="Center" />
-                        </Border>
-                    </Border>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+        <chess:ChessView BindingContext="{Binding Board}" />
     </ScrollView>
 </ContentPage>

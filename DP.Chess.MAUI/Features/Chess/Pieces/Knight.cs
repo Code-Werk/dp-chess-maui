@@ -1,4 +1,4 @@
-﻿namespace DP.Chess.MAUI.Features.ChessBoard.Pieces
+﻿namespace DP.Chess.MAUI.Features.Chess.Pieces
 {
     public class Knight : ChessPiece, IChessPiece
     {
@@ -7,12 +7,12 @@
         {
         }
 
-        public override bool CheckTargetPosition(CellModel[] board, CellModel targetCell)
+        public override bool CheckTargetPosition(IChessBoard board, IChessCell targetCell)
         {
-            IChessPiece pieceAtTarget = board[targetCell.Position.ToBoardIndex()].ChessPiece;
+            IChessPiece pieceAtTarget = board[targetCell.Position].Piece;
 
-            // the knight can jump over other pieces in its way,
-            // thus we do not need to check for that
+            // the knight can jump over other pieces in its way, thus we do not
+            // need to check for that
             return pieceAtTarget == null || Color != pieceAtTarget.Color;
         }
 

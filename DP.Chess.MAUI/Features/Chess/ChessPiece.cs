@@ -1,11 +1,5 @@
-﻿namespace DP.Chess.MAUI.Features.ChessBoard.Pieces
+﻿namespace DP.Chess.MAUI.Features.Chess.Pieces
 {
-    public enum ColorSet
-    {
-        Black = 0,
-        White = 1
-    }
-
     public abstract class ChessPiece : IChessPiece
     {
         public ChessPiece(ColorSet color, Position currentPosition, string symbol)
@@ -23,7 +17,7 @@
 
         public string Symbol { get; }
 
-        public abstract bool CheckTargetPosition(CellModel[] board, CellModel targetCell);
+        public abstract bool CheckTargetPosition(IChessBoard board, IChessCell targetCell);
 
         public abstract void UpdatePossibleMoveSet();
     }

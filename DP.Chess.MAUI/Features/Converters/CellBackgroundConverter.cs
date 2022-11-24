@@ -1,4 +1,4 @@
-﻿using DP.Chess.MAUI.Features.ChessBoard;
+﻿using DP.Chess.MAUI.Features.Chess;
 using System.Globalization;
 
 namespace DP.Chess.MAUI.Features
@@ -7,7 +7,7 @@ namespace DP.Chess.MAUI.Features
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is not CellModel model)
+            if (value is not ChessCellModel model)
             {
                 return Colors.Black;
             }

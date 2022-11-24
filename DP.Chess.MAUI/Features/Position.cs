@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace DP.Chess.MAUI.Features.ChessBoard
+namespace DP.Chess.MAUI.Features
 {
     public readonly struct Position
     {
@@ -34,11 +34,6 @@ namespace DP.Chess.MAUI.Features.ChessBoard
         public override int GetHashCode()
         {
             return HashCode.Combine(X, Y);
-        }
-
-        public int ToBoardIndex()
-        {
-            return Y * 8 + X;
         }
 
         public override string ToString()

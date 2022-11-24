@@ -1,5 +1,5 @@
 ﻿using DP.Chess.MAUI.Features;
-using DP.Chess.MAUI.Features.ChessBoard;
+using DP.Chess.MAUI.Features.Chess;
 
 namespace DP.Chess.MAUI.Infrastructure.Services
 {
@@ -16,7 +16,7 @@ namespace DP.Chess.MAUI.Infrastructure.Services
 
         private static MauiAppBuilder RegisterServices(this MauiAppBuilder mauiAppBuilder)
         {
-            mauiAppBuilder.Services.AddTransient<IMovementService, MovementService>();
+            mauiAppBuilder.Services.AddTransient<IChessBoardMovementService, ChessBoardMovementService>();
 
             return mauiAppBuilder;
         }
