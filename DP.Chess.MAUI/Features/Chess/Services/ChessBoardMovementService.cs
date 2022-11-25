@@ -32,8 +32,6 @@ namespace DP.Chess.MAUI.Features.Chess
             piece.CurrentPosition = target.Position;
             source.Piece = null;
             target.Piece = piece;
-
-            // TODO: do we need to check if an opponent figure was taken?
         }
     }
 }

@@ -10,6 +10,8 @@
                 <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
                 <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            <features:BoolToHalfOpacityConverter x:Key="TrueToHalfOpacityConverter" IsInverse="False" />
+            <features:BoolToHalfOpacityConverter x:Key="FalseToHalfOpacityConverter" IsInverse="True" />
             <chessConverters:CellBackgroundConverter x:Key="CellBackgroundConverter" />
             <chessConverters:ColorSetBackgroundColorConverter x:Key="ColorSetBackgroundColorConverter" />
             <chessConverters:ColorSetTextColorConverter x:Key="ColorSetTextColorConverter" />
