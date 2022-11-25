@@ -141,6 +141,12 @@
   <data name="General_Redo_Label" xml:space="preserve">
     <value>Redo</value>
   </data>
+  <data name="General_Restart_Description" xml:space="preserve">
+    <value>Start a new game</value>
+  </data>
+  <data name="General_Restart_Label" xml:space="preserve">
+    <value>New Game</value>
+  </data>
   <data name="General_Save_Label" xml:space="preserve">
     <value>Save</value>
   </data>

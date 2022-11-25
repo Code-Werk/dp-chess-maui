@@ -11,6 +11,8 @@
                 <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <features:CellBackgroundConverter x:Key="CellBackgroundConverter" />
+            <features:BoolToHalfOpacityConverter x:Key="TrueToHalfOpacityConverter" IsInverse="False" />
+            <features:BoolToHalfOpacityConverter x:Key="FalseToHalfOpacityConverter" IsInverse="True" />
             <features:ColorSetBackgroundColorConverter x:Key="ColorSetBackgroundColorConverter" />
             <features:ColorSetTextColorConverter x:Key="ColorSetTextColorConverter" />
         </ResourceDictionary>

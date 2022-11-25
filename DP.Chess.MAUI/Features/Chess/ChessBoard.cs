@@ -20,7 +20,9 @@ namespace DP.Chess.MAUI.Features.Chess
         private readonly IChessBoardMovementService _movementService;
 
         private ColorSet _currentPlayer;
+        private bool _playerWon;
         private IChessPiece _selectedPiece;
+        private string _winnerText;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ChessBoard"/> class.
@@ -45,10 +47,31 @@ namespace DP.Chess.MAUI.Features.Chess
             InitBoard();
         }
 
+        /// <summary>
+        /// Gets or sets the player that is currently making a move.
+        /// </summary>
         public ColorSet CurrentPlayer
         {
             get => _currentPlayer;
             set => SetProperty(ref _currentPlayer, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the flag to indicate that one of the two players won.
+        /// </summary>
+        public bool PlayerWon
+        {
+            get => _playerWon;
+            set => SetProperty(ref _playerWon, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the text displaying the winner of the current game.
+        /// </summary>
+        public string WinnerText
+        {
+            get => _winnerText;
+            set => SetProperty(ref _winnerText, value);
         }
 
         /// <summary>
@@ -59,7 +82,7 @@ namespace DP.Chess.MAUI.Features.Chess
         /// <summary>
         /// <inheritdoc/>
         /// </summary>
-        public IChessCell this[Position p] => _cells[ChessBoard.ToBoardIndex(p)];
+        public IChessCell this[Position p] => _cells[ToBoardIndex(p)];
 
         /// <summary>
         /// <inheritdoc/>
@@ -132,7 +155,7 @@ namespace DP.Chess.MAUI.Features.Chess
         /// opponent piece or not.
         /// </summary>
         public ICommand ChessMoveCommand => _chessMoveCommand
-            ??= new RelayCommand<IChessCell>(DoChessMove);
+            ??= new RelayCommand<IChessCell>(DoChessMove, (IChessCell _) => !PlayerWon);
 
         private void DoChessMove(IChessCell cell)
         {
@@ -170,8 +193,16 @@ namespace DP.Chess.MAUI.Features.Chess
                     return;
                 }
 
+                // check if the opponent king is the target of the move
+                if (cell.Piece is King)
+                {
+                    PlayerWon = true;
+                    WinnerText = string.Format(AppResources.General_Winner_Label, CurrentPlayer);
+                }
+
                 // an empty field or one occupied by an opponent was selected
                 _movementService.Move(_selectedPiece, this[_selectedPiece.CurrentPosition], cell);
+
                 CurrentPlayer = CurrentPlayer == ColorSet.White
                     ? ColorSet.Black
                     : ColorSet.White;
@@ -219,7 +250,7 @@ namespace DP.Chess.MAUI.Features.Chess
 
         private void UndoMove()
         {
-            throw new NotImplementedException();
+            // TODO: implement memento pattern
         }
 
         #endregion UndoCommand
@@ -237,10 +268,38 @@ namespace DP.Chess.MAUI.Features.Chess
 
         private void RedoMove()
         {
-            throw new NotImplementedException();
+            // TODO: implement memento pattern
         }
 
         #endregion RedoCommand
+
+        #region RestartCommand
+
+        private ICommand _restartCommand;
+
+        /// <summary>
+        /// Command that is executed to start a new game of chess.
+        /// </summary>
+        public ICommand RestartCommand => _restartCommand
+            ??= new RelayCommand(RestartGame);
+
+        private void RestartGame()
+        {
+            foreach (IChessCell c in _cells)
+            {
+                c.Piece = null;
+            }
+
+            InitBoard();
+            RemoveCellSelection();
+            CurrentPlayer = ColorSet.White;
+            PlayerWon = false;
+            WinnerText = string.Empty;
+
+            // TODO: reset the state
+        }
+
+        #endregion RestartCommand
 
         #region SaveCommand
 

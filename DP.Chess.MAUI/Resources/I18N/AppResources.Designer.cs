@@ -133,6 +133,24 @@ namespace DP.Chess.MAUI.Resources.I18N {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Start a new game.
+        /// </summary>
+        internal static string General_Restart_Description {
+            get {
+                return ResourceManager.GetString("General_Restart_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New Game.
+        /// </summary>
+        internal static string General_Restart_Label {
+            get {
+                return ResourceManager.GetString("General_Restart_Label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Save.
         /// </summary>
         internal static string General_Save_Label {

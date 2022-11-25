@@ -11,6 +11,7 @@
             <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
+
         <Grid Grid.Column="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
@@ -54,9 +55,11 @@
                        VerticalTextAlignment="Center" />
             </StackLayout>
         </Grid>
+
         <CollectionView x:Name="ChessBoard" Grid.Column="1"
                         ItemsSource="{Binding}"
                         Margin="10" HeightRequest="810"
+                        Opacity="{Binding PlayerWon, Converter={x:StaticResource TrueToHalfOpacityConverter}}"
                         SelectionChangedCommand="{Binding ChessMoveCommand}"
                         SelectionChangedCommandParameter="{Binding SelectedItem, Source={x:Reference ChessBoard}}"
                         SelectionMode="Single" WidthRequest="800">
@@ -89,5 +92,14 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
+        <StackLayout Grid.Column="1" HorizontalOptions="CenterAndExpand"
+                     IsVisible="{Binding PlayerWon}"
+                     VerticalOptions="CenterAndExpand">
+            <Label FontAttributes="Bold" FontSize="26" Text="{Binding WinnerText}" />
+            <Button Margin="10"
+                    Command="{Binding RestartCommand}"
+                    Text="{x:Static i18n:AppResources.General_Restart_Label}"
+                    ToolTipProperties.Text="{x:Static i18n:AppResources.General_Restart_Description}" />
+        </StackLayout>
     </Grid>
 </ContentView>
