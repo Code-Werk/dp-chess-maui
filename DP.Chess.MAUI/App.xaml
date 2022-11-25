@@ -2,7 +2,7 @@
 <Application x:Class="DP.Chess.MAUI.App"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:features="clr-namespace:DP.Chess.MAUI.Features"
+             xmlns:chessConverters="clr-namespace:DP.Chess.MAUI.Features.Chess.Converters"
              xmlns:local="clr-namespace:DP.Chess.MAUI">
     <Application.Resources>
         <ResourceDictionary>
@@ -10,9 +10,9 @@
                 <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
                 <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <features:CellBackgroundConverter x:Key="CellBackgroundConverter" />
-            <features:ColorSetBackgroundColorConverter x:Key="ColorSetBackgroundColorConverter" />
-            <features:ColorSetTextColorConverter x:Key="ColorSetTextColorConverter" />
+            <chessConverters:CellBackgroundConverter x:Key="CellBackgroundConverter" />
+            <chessConverters:ColorSetBackgroundColorConverter x:Key="ColorSetBackgroundColorConverter" />
+            <chessConverters:ColorSetTextColorConverter x:Key="ColorSetTextColorConverter" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

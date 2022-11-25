@@ -1,4 +1,8 @@
-﻿namespace DP.Chess.MAUI.Features.Chess.Pieces
+﻿using DP.Chess.MAUI.Features.Chess.Boards;
+using DP.Chess.MAUI.Features.Chess.Cells;
+using DP.Chess.MAUI.Infrastructure;
+
+namespace DP.Chess.MAUI.Features.Chess.Pieces
 {
     /// <summary>
     /// Class representing the pawn chess piece.
@@ -10,13 +14,13 @@
         /// </summary>
         /// <param name="color">The color of a piece.</param>
         /// <param name="currentPosition">The position of a piece on the board it has at creation.</param>
-        public Pawn(ColorSet color, Position currentPosition)
+        public Pawn(PlayerColor color, Position currentPosition)
             : base(color, currentPosition, "P")
         {
         }
 
-        private bool EndOfBoard => Color == ColorSet.White && CurrentPosition.Y == 0
-                    || Color == ColorSet.Black && CurrentPosition.Y == 7;
+        private bool EndOfBoard => Color == PlayerColor.White && CurrentPosition.Y == 0
+                    || Color == PlayerColor.Black && CurrentPosition.Y == 7;
 
         /// <summary>
         /// <inheritdoc/>
@@ -37,14 +41,14 @@
             canMove &= pieceAtTarget == null;
 
             // check special case where pawn can move upwards for two rows
-            if (Color == ColorSet.White && targetPosition.Y == CurrentPosition.Y - 2)
+            if (Color == PlayerColor.White && targetPosition.Y == CurrentPosition.Y - 2)
             {
                 // check if there's a piece on the cell in between
                 pieceAtTarget = board[targetPosition.X, targetPosition.Y - 1].Piece;
                 canMove &= pieceAtTarget == null;
             }
 
-            if (Color == ColorSet.Black && targetPosition.Y == CurrentPosition.Y + 2)
+            if (Color == PlayerColor.Black && targetPosition.Y == CurrentPosition.Y + 2)
             {
                 // check if there's a piece on the cell in between
                 pieceAtTarget = board[targetPosition.X, targetPosition.Y - 1].Piece;
@@ -70,7 +74,7 @@
                 return;
             }
 
-            int newY = Color == ColorSet.White
+            int newY = Color == PlayerColor.White
                 ? CurrentPosition.Y - 1
                 : CurrentPosition.Y + 1;
 
@@ -82,12 +86,12 @@
 
             // pawns can move either one or two fields in y direction on their
             // first move
-            if (Color == ColorSet.Black && CurrentPosition.Y == 1)
+            if (Color == PlayerColor.Black && CurrentPosition.Y == 1)
             {
                 moveSet.Add(new Position(CurrentPosition.X, CurrentPosition.Y + 2));
             }
 
-            if (Color == ColorSet.White && CurrentPosition.Y == 6)
+            if (Color == PlayerColor.White && CurrentPosition.Y == 6)
             {
                 moveSet.Add(new Position(CurrentPosition.X, CurrentPosition.Y - 2));
             }

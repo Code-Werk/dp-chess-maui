@@ -1,11 +1,13 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using DP.Chess.MAUI.Features.Chess.Pieces;
+using DP.Chess.MAUI.Infrastructure;
 
-namespace DP.Chess.MAUI.Features.Chess
+namespace DP.Chess.MAUI.Features.Chess.Cells
 {
     /// <summary>
-    /// Class representing a cell on a chess board.
-    /// It implements the <see cref="ObservableObject"/> class to notify
-    /// any observers of its instances (e.g. the UI).
+    /// Class representing a cell on a chess board. It implements the
+    /// <see cref="ObservableObject" /> class to notify any observers of its
+    /// instances (e.g. the UI).
     /// </summary>
     public class ChessCellModel : ObservableObject, IChessCell
     {
@@ -13,7 +15,7 @@ namespace DP.Chess.MAUI.Features.Chess
         private IChessPiece _piece;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ChessCellModel"/> class.
+        /// Initializes a new instance of the <see cref="ChessCellModel" /> class.
         /// </summary>
         /// <param name="position">The position of the cell on a chess board.</param>
         public ChessCellModel(Position position)
@@ -22,7 +24,7 @@ namespace DP.Chess.MAUI.Features.Chess
         }
 
         /// <summary>
-        /// <inheritdoc/>
+        /// <inheritdoc />
         /// </summary>
         public bool IsSelected
         {
@@ -31,7 +33,7 @@ namespace DP.Chess.MAUI.Features.Chess
         }
 
         /// <summary>
-        /// <inheritdoc/>
+        /// <inheritdoc />
         /// </summary>
         public IChessPiece Piece
         {
@@ -40,7 +42,7 @@ namespace DP.Chess.MAUI.Features.Chess
         }
 
         /// <summary>
-        /// <inheritdoc/>
+        /// <inheritdoc />
         /// </summary>
         public Position Position { get; }
     }

@@ -1,9 +1,12 @@
-﻿namespace DP.Chess.MAUI.Features
+﻿namespace DP.Chess.MAUI.Infrastructure.BoardFactory
 {
     /// <summary>
-    /// Interface representing a game's board, consisting of cells where the game pieces move.
+    /// Interface representing a game's board, consisting of cells where the
+    /// game pieces move.
     /// </summary>
-    /// <typeparam name="TCell">Type of the cells that the board consist of.</typeparam>
+    /// <typeparam name="TCell">
+    /// Type of the cells that the board consist of.
+    /// </typeparam>
     /// <typeparam name="TPiece">Type of the game's pieces.</typeparam>
     public interface IBoard<TCell, TPiece> : IEnumerable<TCell>
         where TCell : ICell<TPiece>

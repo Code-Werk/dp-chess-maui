@@ -1,4 +1,7 @@
-﻿namespace DP.Chess.MAUI.Features.Chess.Pieces
+﻿using DP.Chess.MAUI.Features.Chess.Boards;
+using DP.Chess.MAUI.Infrastructure;
+
+namespace DP.Chess.MAUI.Features.Chess.Pieces
 {
     /// <summary>
     /// Class containing helper methods for the movement of chess pieces.
