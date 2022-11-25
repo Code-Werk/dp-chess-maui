@@ -1,12 +1,23 @@
 ﻿namespace DP.Chess.MAUI.Features.Chess.Pieces
 {
+    /// <summary>
+    /// Class representing the king chess piece.
+    /// </summary>
     public class King : ChessPiece, IChessPiece
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="King"/> class.
+        /// </summary>
+        /// <param name="color">The color of a piece.</param>
+        /// <param name="currentPosition">The position of a piece on the board it has at creation.</param>
         public King(ColorSet color, Position currentPosition)
             : base(color, currentPosition, "KI")
         {
         }
 
+        /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
         public override bool CheckTargetPosition(IChessBoard board, IChessCell targetCell)
         {
             IChessPiece pieceAtTarget = board[targetCell.Position].Piece;
@@ -14,6 +25,9 @@
             return pieceAtTarget == null || Color != pieceAtTarget.Color;
         }
 
+        /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
         public override void UpdatePossibleMoveSet()
         {
             List<Position> moveSet = new();

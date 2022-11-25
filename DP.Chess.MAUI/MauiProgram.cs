@@ -5,8 +5,15 @@ using Microsoft.Extensions.Logging;
 
 namespace DP.Chess.MAUI;
 
+/// <summary>
+/// Class that serves as the entry point for the MAUI application.
+/// </summary>
 public static class MauiProgram
 {
+    /// <summary>
+    /// Static method that creates the MAUI app instance.
+    /// </summary>
+    /// <returns></returns>
     public static MauiApp CreateMauiApp()
     {
         MauiAppBuilder builder = MauiApp

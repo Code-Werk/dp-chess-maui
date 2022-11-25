@@ -8,6 +8,11 @@ using System.Windows.Input;
 
 namespace DP.Chess.MAUI.Features.Chess
 {
+    /// <summary>
+    /// Class representing a chess board.
+    /// It implements the <see cref="ObservableObject"/> class to notify
+    /// any observers of its instances (e.g. the UI).
+    /// </summary>
     public class ChessBoard : ObservableObject, IEnumerable<IChessCell>, IChessBoard
     {
         private readonly IChessCell[] _cells;
@@ -16,6 +21,10 @@ namespace DP.Chess.MAUI.Features.Chess
         private ColorSet _currentPlayer;
         private IChessPiece _selectedPiece;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ChessBoard"/> class.
+        /// </summary>
+        /// <param name="movementService">The service containing chess piece movement logic.</param>
         public ChessBoard(IChessBoardMovementService movementService)
         {
             _movementService = movementService;
@@ -41,14 +50,29 @@ namespace DP.Chess.MAUI.Features.Chess
             set => SetProperty(ref _currentPlayer, value);
         }
 
+        /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
         public IChessCell this[int x, int y] => _cells[y * 8 + x];
 
+        /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
         public IChessCell this[Position p] => _cells[ChessBoard.ToBoardIndex(p)];
 
+        /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
         public IEnumerator<IChessCell> GetEnumerator() => _cells.Cast<IChessCell>().GetEnumerator();
 
+        /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
         IEnumerator IEnumerable.GetEnumerator() => _cells.GetEnumerator();
 
+        /// <summary>
+        /// Method that initializes the chess board for a new game.
+        /// </summary>
         public void InitBoard()
         {
             for (int x = 0; x < 8; x++)
@@ -165,6 +189,11 @@ namespace DP.Chess.MAUI.Features.Chess
 
         private ICommand _loadCommand;
 
+        /// <summary>
+        /// Gets the command that is executed to load a previously saved game.
+        /// It allows the user to pick a save file, which will then be loaded and
+        /// the board will be initialized accordingly.
+        /// </summary>
         public ICommand LoadCommand => _loadCommand
             ??= new AsyncRelayCommand(LoadGame);
 
@@ -180,6 +209,10 @@ namespace DP.Chess.MAUI.Features.Chess
 
         private ICommand _undoCommand;
 
+        /// <summary>
+        /// Command that is executed to undo a previously made chess move.
+        /// It loads the state of the board from the previous move.
+        /// </summary>
         public ICommand UndoCommand => _undoCommand
             ??= new RelayCommand(UndoMove);
 
@@ -194,6 +227,10 @@ namespace DP.Chess.MAUI.Features.Chess
 
         private ICommand _redoCommand;
 
+        /// <summary>
+        /// Command that is executed to redo a previously undone chess move.
+        /// It loads the state of the board from the undone move.
+        /// </summary>
         public ICommand RedoCommand => _redoCommand
             ??= new RelayCommand(RedoMove);
 
@@ -208,6 +245,10 @@ namespace DP.Chess.MAUI.Features.Chess
 
         private ICommand _saveCommand;
 
+        /// <summary>
+        /// Command that is executed to save the current state of the board
+        /// into a save file.
+        /// </summary>
         public ICommand SaveCommand => _saveCommand
             ??= new AsyncRelayCommand(SaveGame);
 

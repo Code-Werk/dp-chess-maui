@@ -1,7 +1,15 @@
 ﻿namespace DP.Chess.MAUI.Features.Chess.Pieces
 {
+    /// <summary>
+    /// Class representing the pawn chess piece.
+    /// </summary>
     public class Pawn : ChessPiece, IChessPiece
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Pawn"/> class.
+        /// </summary>
+        /// <param name="color">The color of a piece.</param>
+        /// <param name="currentPosition">The position of a piece on the board it has at creation.</param>
         public Pawn(ColorSet color, Position currentPosition)
             : base(color, currentPosition, "P")
         {
@@ -10,6 +18,9 @@
         private bool EndOfBoard => Color == ColorSet.White && CurrentPosition.Y == 0
                     || Color == ColorSet.Black && CurrentPosition.Y == 7;
 
+        /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
         public override bool CheckTargetPosition(IChessBoard board, IChessCell targetCell)
         {
             Position targetPosition = targetCell.Position;
@@ -43,6 +54,9 @@
             return canMove;
         }
 
+        /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
         public override void UpdatePossibleMoveSet()
         {
             IList<Position> moveSet = new List<Position>();
