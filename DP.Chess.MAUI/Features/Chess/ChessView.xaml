@@ -3,6 +3,8 @@
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:chess="clr-namespace:DP.Chess.MAUI.Features.Chess"
+             xmlns:i18n="clr-namespace:DP.Chess.MAUI.Resources.I18N"
+             xmlns:icons="clr-namespace:DP.Chess.MAUI.Resources.Icons"
              x:DataType="chess:ChessBoard">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -13,16 +15,43 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
             <StackLayout Grid.Row="0" Margin="10,10,10,5" Orientation="Horizontal">
-                <Button Margin="0,0,5,0" Command="{Binding SaveCommand}" Text="Save" />
-                <Button Margin="5,0" Command="{Binding LoadCommand}" Text="Load" />
-                <Button Margin="5,0" Command="{Binding UndoCommand}" Text="Undo" />
-                <Button Margin="5,0" Command="{Binding RedoCommand}" Text="Redo" />
+                <Button Margin="0,0,5,0"
+                        Command="{Binding SaveCommand}"
+                        FontFamily="MDI"
+                        Text="{x:Static icons:MaterialDesignIcons.ContentSave}"
+                        ToolTipProperties.Text="{x:Static i18n:AppResources.General_Save_Label}" />
+                <Button Margin="5,0"
+                        Command="{Binding LoadCommand}"
+                        FontFamily="MDI"
+                        Text="{x:Static icons:MaterialDesignIcons.FolderUpload}"
+                        ToolTipProperties.Text="{x:Static i18n:AppResources.General_Load_Label}" />
+                <Button Margin="5,0"
+                        Command="{Binding UndoCommand}"
+                        FontFamily="MDI"
+                        Text="{x:Static icons:MaterialDesignIcons.Undo}"
+                        ToolTipProperties.Text="{x:Static i18n:AppResources.General_Undo_Label}" />
+                <Button Margin="5,0"
+                        Command="{Binding RedoCommand}"
+                        FontFamily="MDI"
+                        Text="{x:Static icons:MaterialDesignIcons.Redo}"
+                        ToolTipProperties.Text="{x:Static i18n:AppResources.General_Redo_Label}" />
             </StackLayout>
             <StackLayout Grid.Row="1" Margin="10,5" Orientation="Horizontal">
-                <Label Text="Current Player:" />
+                <Label Text="{x:Static i18n:AppResources.Chess_CurrentPlayer_Label}" />
+                <Label Text=":" />
                 <Label Margin="5,0,0,0" Text="{Binding CurrentPlayer}" />
+            </StackLayout>
+            <StackLayout Grid.Row="2" Margin="10,5" Orientation="Horizontal">
+                <Label Text="{x:Static i18n:AppResources.Chess_WinningCondition_Label}" />
+                <Label Text=":" />
+                <Label Margin="5,0,0,0" Text="{x:Static i18n:AppResources.Chess_WinningCondition_Description}" />
+                <Label Margin="5,0,0,0" FontFamily="MDI"
+                       Text="{x:Static icons:MaterialDesignIcons.InformationOutline}"
+                       ToolTipProperties.Text="{x:Static i18n:AppResources.Chess_WinningCondition_ToolTip}"
+                       VerticalTextAlignment="Center" />
             </StackLayout>
         </Grid>
         <CollectionView x:Name="ChessBoard" Grid.Column="1"

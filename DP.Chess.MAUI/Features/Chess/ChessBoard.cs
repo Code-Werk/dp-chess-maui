@@ -3,6 +3,7 @@ using CommunityToolkit.Maui.Core;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using DP.Chess.MAUI.Features.Chess.Pieces;
+using DP.Chess.MAUI.Resources.I18N;
 using System.Collections;
 using System.Windows.Input;
 
@@ -164,7 +165,7 @@ namespace DP.Chess.MAUI.Features.Chess
             {
                 if (!_movementService.CanMove(this, _selectedPiece, cell))
                 {
-                    IToast toast = Toast.Make("Invalid move.", ToastDuration.Short);
+                    IToast toast = Toast.Make(AppResources.General_InvalidMove_Label, ToastDuration.Short);
                     toast.Show();
                     return;
                 }
