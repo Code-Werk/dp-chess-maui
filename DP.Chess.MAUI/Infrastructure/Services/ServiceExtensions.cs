@@ -36,8 +36,6 @@ namespace DP.Chess.MAUI.Infrastructure.Services
 
         private static MauiAppBuilder RegisterViewModels(this MauiAppBuilder mauiAppBuilder)
         {
-            mauiAppBuilder.Services.AddTransient<MainPageViewModel>();
-
             return mauiAppBuilder;
         }
 

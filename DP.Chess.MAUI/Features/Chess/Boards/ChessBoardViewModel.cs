@@ -67,7 +67,7 @@ namespace DP.Chess.MAUI.Features.Chess.Boards
         }
 
         /// <summary>
-        /// <inheritdoc/>
+        /// <inheritdoc />
         /// </summary>
         public IChessCell this[int x, int y] => _cells[y * 8 + x];
 
@@ -244,9 +244,10 @@ namespace DP.Chess.MAUI.Features.Chess.Boards
                 c.Piece = null;
             }
 
-            InitBoard();
+            // TODO: Reset the board
+            //InitBoard();
             RemoveCellSelection();
-            CurrentPlayer = ColorSet.White;
+            CurrentPlayer = PlayerColor.White;
             PlayerWon = false;
             WinnerText = string.Empty;
 

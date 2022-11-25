@@ -1,17 +1,17 @@
 ﻿using System.Globalization;
 
-namespace DP.Chess.MAUI.Features
+namespace DP.Chess.MAUI.Features.Chess.Converters
 {
     /// <summary>
-    /// Class responsible to return a double value (0.5) to set the opacity value of a view to 50% depending
-    /// on a boolean value.
+    /// Class responsible to return a double value (0.5) to set the opacity
+    /// value of a view to 50% depending on a boolean value.
     /// </summary>
     public class BoolToHalfOpacityConverter : IValueConverter
     {
         public bool IsInverse { get; set; }
 
         /// <summary>
-        /// <inheritdoc/>
+        /// <inheritdoc />
         /// </summary>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -29,7 +29,7 @@ namespace DP.Chess.MAUI.Features
         }
 
         /// <summary>
-        /// <inheritdoc/>
+        /// <inheritdoc />
         /// </summary>
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
