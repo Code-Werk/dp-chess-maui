@@ -1,6 +1,5 @@
 ﻿using DP.Chess.MAUI.Features.Chess.Cells;
 using DP.Chess.MAUI.Features.Chess.Pieces;
-using DP.Chess.MAUI.Infrastructure;
 using System.Text.Json;
 
 namespace DP.Chess.MAUI.Features.Chess
@@ -9,7 +8,7 @@ namespace DP.Chess.MAUI.Features.Chess
     {
         private const string SAVE_FILE_NAME = "design_patterns_chess.json";
 
-        public async Task<(PlayerColor currentPlayer, IChessCell[] board)> LoadGame()
+        public async Task<(PlayerColor currentPlayer, IList<IChessPiece> pieces)> LoadGame()
         {
             string path = @"c:\temp\chess\" + SAVE_FILE_NAME;
 
@@ -24,7 +23,7 @@ namespace DP.Chess.MAUI.Features.Chess
 
             PlayerColor currentPlayer = deserializedSave.CurrentPlayer;
 
-            return (currentPlayer, GetBoardFromSave(deserializedSave));
+            return (currentPlayer, GetSavedPieces(deserializedSave));
         }
 
         public async Task SaveGame(PlayerColor currentPlayer, IChessCell[] board)
@@ -48,27 +47,6 @@ namespace DP.Chess.MAUI.Features.Chess
             await createStream.DisposeAsync();
         }
 
-        private IChessCell[] GetBoardFromSave(ChessSerializable deserializedSave)
-        {
-            IChessCell[] cells = new ChessCellModel[8 * 8];
-
-            for (int x = 0; x < 8; x++)
-            {
-                for (int y = 0; y < 8; y++)
-                {
-                    Position position = new(x, y);
-                    cells[position.ToChessBoardIndex()] = new ChessCellModel(position);
-                }
-            }
-
-            foreach (ChessPieceSerializable cp in deserializedSave.Pieces)
-            {
-                cells[cp.Position.ToChessBoardIndex()].Piece = GetChessPiece(cp);
-            }
-
-            return cells;
-        }
-
         private IChessPiece GetChessPiece(ChessPieceSerializable cp)
         {
             return cp.Symbol switch
@@ -81,6 +59,18 @@ namespace DP.Chess.MAUI.Features.Chess
                 "R" => new Rook(cp.Color, cp.Position),
                 _ => throw new ArgumentException("the loaded piece contained an unknown symbol"),
             };
+        }
+
+        private IList<IChessPiece> GetSavedPieces(ChessSerializable deserializedSave)
+        {
+            IList<IChessPiece> pieces = new List<IChessPiece>();
+
+            foreach (ChessPieceSerializable cp in deserializedSave.Pieces)
+            {
+                pieces.Add(GetChessPiece(cp));
+            }
+
+            return pieces;
         }
 
         private IList<ChessPieceSerializable> GetSerializedChessPieces(IChessCell[] board)

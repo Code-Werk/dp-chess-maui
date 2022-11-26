@@ -89,9 +89,13 @@ namespace DP.Chess.MAUI.Features.Chess.Boards
         /// </summary>
         IEnumerator IEnumerable.GetEnumerator() => _cells.GetEnumerator();
 
-        /// <summary>
-        /// Method that initializes the chess board for a new game.
-        /// </summary>
+        private void EmptyCells()
+        {
+            foreach (IChessCell cell in this)
+            {
+                cell.Piece = null;
+            }
+        }
 
         private void RemoveCellSelection()
         {
@@ -188,23 +192,29 @@ namespace DP.Chess.MAUI.Features.Chess.Boards
 
         private async Task LoadGame()
         {
-            IToast toast = Toast.Make(AppResources.General_GameLoaded_Error, ToastDuration.Short);
+            IToast toast = Toast.Make(AppResources.General_GameLoaded_Error, ToastDuration.Long);
 
             try
             {
-                (PlayerColor currentPlayer, IChessCell[] board) = await _fileService.LoadGame();
+                (PlayerColor currentPlayer, IList<IChessPiece> pieces) = await _fileService.LoadGame();
 
                 CurrentPlayer = currentPlayer;
-                _cells = board;
+                EmptyCells();
+
+                foreach (IChessPiece cp in pieces)
+                {
+                    _cells[cp.CurrentPosition.ToChessBoardIndex()].Piece = cp;
+                }
             }
             catch (Exception)
             {
                 // overwrite the toast on case of an exception
-                toast = Toast.Make(AppResources.General_GameLoaded_Error, ToastDuration.Short);
+                toast = Toast.Make(AppResources.General_GameLoaded_Error, ToastDuration.Long);
             }
             finally
             {
-                await toast.Show();
+                CancellationTokenSource cancellationTokenSource = new();
+                await toast.Show(cancellationTokenSource.Token);
             }
         }
 
@@ -258,10 +268,7 @@ namespace DP.Chess.MAUI.Features.Chess.Boards
 
         private void RestartGame()
         {
-            foreach (IChessCell c in _cells)
-            {
-                c.Piece = null;
-            }
+            EmptyCells();
 
             // TODO: Reset the board
             //InitBoard();
@@ -288,7 +295,7 @@ namespace DP.Chess.MAUI.Features.Chess.Boards
 
         private async Task SaveGame()
         {
-            IToast toast = Toast.Make(AppResources.General_GameSaved_Success, ToastDuration.Short);
+            IToast toast = Toast.Make(AppResources.General_GameSaved_Success, ToastDuration.Long);
 
             try
             {
@@ -297,11 +304,12 @@ namespace DP.Chess.MAUI.Features.Chess.Boards
             catch (Exception)
             {
                 // overwrite the toast on case of an exception
-                toast = Toast.Make(AppResources.General_GameSaved_Error, ToastDuration.Short);
+                toast = Toast.Make(AppResources.General_GameSaved_Error, ToastDuration.Long);
             }
             finally
             {
-                await toast.Show();
+                CancellationTokenSource cancellationTokenSource = new();
+                await toast.Show(cancellationTokenSource.Token);
             }
         }
 

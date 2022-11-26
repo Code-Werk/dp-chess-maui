@@ -1,4 +1,5 @@
 ﻿using DP.Chess.MAUI.Features.Chess.Cells;
+using DP.Chess.MAUI.Features.Chess.Pieces;
 
 namespace DP.Chess.MAUI.Features.Chess
 {
@@ -8,7 +9,7 @@ namespace DP.Chess.MAUI.Features.Chess
         /// TODO
         /// </summary>
         /// <returns></returns>
-        Task<(PlayerColor currentPlayer, IChessCell[] board)> LoadGame();
+        Task<(PlayerColor currentPlayer, IList<IChessPiece> pieces)> LoadGame();
 
         /// <summary>
         /// TODO
