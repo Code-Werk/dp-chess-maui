@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using DP.Chess.MAUI.Features.Chess;
+using DP.Chess.MAUI.Features.Chess.Services;
 
 namespace DP.Chess.MAUI.Features
 {
@@ -14,9 +15,9 @@ namespace DP.Chess.MAUI.Features
         /// Initializes a new instance of the <see cref="MainPageViewModel"/> class.
         /// </summary>
         /// <param name="movementService">The service containing chess piece movement logic.</param>
-        public MainPageViewModel(IChessBoardMovementService movementService)
+        public MainPageViewModel(IChessFileService fileService, IChessBoardMovementService movementService)
         {
-            Board = new ChessBoard(movementService);
+            Board = new ChessBoard(fileService, movementService);
         }
 
         /// <summary>

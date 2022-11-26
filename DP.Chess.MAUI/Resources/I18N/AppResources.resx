@@ -132,6 +132,18 @@
   <data name="Chess_WinningCondition_ToolTip" xml:space="preserve">
     <value>In order to win the game, the king has to be taken.  The game will not indicate a check or checkmate condition.</value>
   </data>
+  <data name="General_GameLoaded_Error" xml:space="preserve">
+    <value>Error while loading the save file!</value>
+  </data>
+  <data name="General_GameLoaded_Success" xml:space="preserve">
+    <value>Game loaded successfully!</value>
+  </data>
+  <data name="General_GameSaved_Error" xml:space="preserve">
+    <value>Error while saving the game!</value>
+  </data>
+  <data name="General_GameSaved_Success" xml:space="preserve">
+    <value>Game saved successfully!</value>
+  </data>
   <data name="General_InvalidMove_Label" xml:space="preserve">
     <value>Invalid move</value>
   </data>

@@ -3,6 +3,7 @@ using CommunityToolkit.Maui.Core;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using DP.Chess.MAUI.Features.Chess.Pieces;
+using DP.Chess.MAUI.Features.Chess.Services;
 using DP.Chess.MAUI.Resources.I18N;
 using System.Collections;
 using System.Windows.Input;
@@ -17,6 +18,7 @@ namespace DP.Chess.MAUI.Features.Chess
     public class ChessBoard : ObservableObject, IEnumerable<IChessCell>, IChessBoard
     {
         private readonly IChessCell[] _cells;
+        private readonly IChessFileService _fileService;
         private readonly IChessBoardMovementService _movementService;
 
         private ColorSet _currentPlayer;
@@ -28,8 +30,9 @@ namespace DP.Chess.MAUI.Features.Chess
         /// Initializes a new instance of the <see cref="ChessBoard"/> class.
         /// </summary>
         /// <param name="movementService">The service containing chess piece movement logic.</param>
-        public ChessBoard(IChessBoardMovementService movementService)
+        public ChessBoard(IChessFileService fileService, IChessBoardMovementService movementService)
         {
+            _fileService = fileService;
             _movementService = movementService;
 
             _cells = new ChessCellModel[8 * 8];
@@ -231,8 +234,25 @@ namespace DP.Chess.MAUI.Features.Chess
 
         private async Task LoadGame()
         {
-            await Task.CompletedTask;
-            throw new NotImplementedException();
+            IToast toast = Toast.Make(AppResources.General_GameLoaded_Error, ToastDuration.Short);
+
+            try
+            {
+                (ColorSet currentPlayer, IChessCell[] board) = await _fileService.LoadGame();
+
+                CurrentPlayer = currentPlayer;
+                // TODO assign cells
+                //_cells = board;
+            }
+            catch (Exception)
+            {
+                // overwrite the toast on case of an exception
+                toast = Toast.Make(AppResources.General_GameLoaded_Error, ToastDuration.Short);
+            }
+            finally
+            {
+                await toast.Show();
+            }
         }
 
         #endregion LoadCommand
@@ -314,8 +334,21 @@ namespace DP.Chess.MAUI.Features.Chess
 
         private async Task SaveGame()
         {
-            await Task.CompletedTask;
-            throw new NotImplementedException();
+            IToast toast = Toast.Make(AppResources.General_GameSaved_Success, ToastDuration.Short);
+
+            try
+            {
+                await _fileService.SaveGame(CurrentPlayer, _cells);
+            }
+            catch (Exception)
+            {
+                // overwrite the toast on case of an exception
+                toast = Toast.Make(AppResources.General_GameSaved_Error, ToastDuration.Short);
+            }
+            finally
+            {
+                await toast.Show();
+            }
         }
 
         #endregion SaveCommand

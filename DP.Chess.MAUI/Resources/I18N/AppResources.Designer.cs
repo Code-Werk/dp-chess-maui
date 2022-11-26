@@ -106,6 +106,42 @@ namespace DP.Chess.MAUI.Resources.I18N {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error while loading the save file!.
+        /// </summary>
+        internal static string General_GameLoaded_Error {
+            get {
+                return ResourceManager.GetString("General_GameLoaded_Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Game loaded successfully!.
+        /// </summary>
+        internal static string General_GameLoaded_Success {
+            get {
+                return ResourceManager.GetString("General_GameLoaded_Success", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error while saving the game!.
+        /// </summary>
+        internal static string General_GameSaved_Error {
+            get {
+                return ResourceManager.GetString("General_GameSaved_Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Game saved successfully!.
+        /// </summary>
+        internal static string General_GameSaved_Success {
+            get {
+                return ResourceManager.GetString("General_GameSaved_Success", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid move.
         /// </summary>
         internal static string General_InvalidMove_Label {
