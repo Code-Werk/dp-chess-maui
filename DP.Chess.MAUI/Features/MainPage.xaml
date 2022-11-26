@@ -1,11 +1,4 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage x:Class="DP.Chess.MAUI.Features.MainPage"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:chess="clr-namespace:DP.Chess.MAUI.Features.Chess"
-             xmlns:features="clr-namespace:DP.Chess.MAUI.Features"
-             x:DataType="features:MainPageViewModel">
-    <ScrollView HorizontalOptions="Fill" VerticalOptions="Fill">
-        <chess:ChessView BindingContext="{Binding Board}" />
-    </ScrollView>
-</ContentPage>
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" />

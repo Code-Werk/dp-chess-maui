@@ -1,14 +1,15 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace DP.Chess.MAUI.Features
+namespace DP.Chess.MAUI.Infrastructure
 {
     /// <summary>
-    /// Structure representing a position with x and y coordinates on a game board.
+    /// Structure representing a position with x and y coordinates on a game
+    /// board. Starting in the left top corner with 0,0.
     /// </summary>
     public readonly struct Position
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="Position"/> structure.
+        /// Initializes a new instance of the <see cref="Position" /> structure.
         /// </summary>
         /// <param name="x">The x coordinate of the position on the board.</param>
         /// <param name="y">The y coordinate of the position on the board.</param>
@@ -51,30 +52,30 @@ namespace DP.Chess.MAUI.Features
         }
 
         /// <summary>
-        /// <inheritdoc/>
+        /// <inheritdoc />
         /// </summary>
-        /// <param name="o"><inheritdoc/></param>
-        /// <returns><inheritdoc/></returns>
+        /// <param name="o"><inheritdoc /></param>
+        /// <returns><inheritdoc /></returns>
         public override bool Equals([NotNullWhen(true)] object o)
         {
             if (o is not Position p) return false;
 
-            return (X == p.X) && (Y == p.Y);
+            return X == p.X && Y == p.Y;
         }
 
         /// <summary>
-        /// <inheritdoc/>
+        /// <inheritdoc />
         /// </summary>
-        /// <returns><inheritdoc/></returns>
+        /// <returns><inheritdoc /></returns>
         public override int GetHashCode()
         {
             return HashCode.Combine(X, Y);
         }
 
         /// <summary>
-        /// <inheritdoc/>
+        /// <inheritdoc />
         /// </summary>
-        /// <returns><inheritdoc/></returns>
+        /// <returns><inheritdoc /></returns>
         public override string ToString()
         {
             return $"({X},{Y})";

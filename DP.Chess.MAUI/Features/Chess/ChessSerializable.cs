@@ -1,4 +1,6 @@
-﻿namespace DP.Chess.MAUI.Features.Chess
+﻿using DP.Chess.MAUI.Infrastructure;
+
+namespace DP.Chess.MAUI.Features.Chess
 {
     public class ChessPieceSerializable
     {
@@ -10,7 +12,7 @@
         {
         }
 
-        public ColorSet Color { get; set; }
+        public PlayerColor Color { get; set; }
 
         public Position Position { get; set; }
 
@@ -27,7 +29,7 @@
         {
         }
 
-        public ColorSet CurrentPlayer { get; set; }
+        public PlayerColor CurrentPlayer { get; set; }
 
         public IList<ChessPieceSerializable> Pieces { get; set; }
     }

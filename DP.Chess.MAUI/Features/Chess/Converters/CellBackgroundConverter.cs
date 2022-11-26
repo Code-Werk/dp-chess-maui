@@ -1,7 +1,7 @@
-﻿using DP.Chess.MAUI.Features.Chess;
+﻿using DP.Chess.MAUI.Features.Chess.Cells;
 using System.Globalization;
 
-namespace DP.Chess.MAUI.Features
+namespace DP.Chess.MAUI.Features.Chess.Converters
 {
     /// <summary>
     /// Class responsible to return a background color based on a cell and its position.
@@ -9,7 +9,7 @@ namespace DP.Chess.MAUI.Features
     public class CellBackgroundConverter : IValueConverter
     {
         /// <summary>
-        /// <inheritdoc/>
+        /// <inheritdoc />
         /// </summary>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -26,7 +26,7 @@ namespace DP.Chess.MAUI.Features
         }
 
         /// <summary>
-        /// <inheritdoc/>
+        /// <inheritdoc />
         /// </summary>
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {

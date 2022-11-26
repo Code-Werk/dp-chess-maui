@@ -1,12 +1,16 @@
-﻿namespace DP.Chess.MAUI.Features.Chess
+﻿using DP.Chess.MAUI.Features.Chess.Boards;
+using DP.Chess.MAUI.Features.Chess.Cells;
+using DP.Chess.MAUI.Features.Chess.Pieces;
+
+namespace DP.Chess.MAUI.Features.Chess
 {
     /// <summary>
-    /// Class that contains movement logic specific for chess pieces.
+    /// <inheritdoc />
     /// </summary>
     public class ChessBoardMovementService : IChessBoardMovementService
     {
         /// <summary>
-        /// <inheritdoc/>
+        /// <inheritdoc />
         /// </summary>
         public bool CanMove(IChessBoard board, IChessPiece piece, IChessCell target)
         {
@@ -21,7 +25,7 @@
         }
 
         /// <summary>
-        /// <inheritdoc/>
+        /// <inheritdoc />
         /// </summary>
         public void Move(IChessPiece piece, IChessCell source, IChessCell target)
         {

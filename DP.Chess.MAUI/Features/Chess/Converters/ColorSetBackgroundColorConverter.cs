@@ -1,27 +1,27 @@
 ﻿using DP.Chess.MAUI.Features.Chess;
 using System.Globalization;
 
-namespace DP.Chess.MAUI.Features
+namespace DP.Chess.MAUI.Features.Chess.Converters
 {
     /// <summary>
-    /// Class responsible to return the text color for a piece on the board.
+    /// Class responsible to return a background color based on a figure.
     /// </summary>
-    public class ColorSetTextColorConverter : IValueConverter
+    public class ColorSetBackgroundColorConverter : IValueConverter
     {
         /// <summary>
         /// <inheritdoc/>
         /// </summary>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is not ColorSet colorSet)
+            if (value is not PlayerColor colorSet)
             {
                 return null;
             }
 
             return colorSet switch
             {
-                ColorSet.Black => Colors.White,
-                ColorSet.White => Colors.Black,
+                PlayerColor.Black => Colors.Black,
+                PlayerColor.White => Colors.White,
                 _ => throw new ArgumentOutOfRangeException($"color {colorSet} does not exist"),
             };
         }

@@ -21,6 +21,7 @@
 
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
 		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
+		<Nullable>enable</Nullable>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -41,6 +42,14 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Remove="Features\Converters\**" />
+	  <EmbeddedResource Remove="Features\Converters\**" />
+	  <MauiCss Remove="Features\Converters\**" />
+	  <MauiXaml Remove="Features\Converters\**" />
+	  <None Remove="Features\Converters\**" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <Compile Remove="Resources\Fonts\Icons.cs" />
 	  <Compile Remove="Resources\Fonts\MaterialDesignIcons.cs" />
 	</ItemGroup>
@@ -57,7 +66,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="Features\Chess\ChessView.xaml">
+	  <MauiXaml Update="Features\Chess\Boards\ChessBoardView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>
@@ -79,6 +88,10 @@
 	    <Generator>ResXFileCodeGenerator</Generator>
 	    <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
 	  </EmbeddedResource>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PRIResource Remove="Features\Converters\**" />
 	</ItemGroup>
 
 </Project>

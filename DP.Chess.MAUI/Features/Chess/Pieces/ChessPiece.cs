@@ -1,4 +1,8 @@
-﻿namespace DP.Chess.MAUI.Features.Chess.Pieces
+﻿using DP.Chess.MAUI.Features.Chess.Boards;
+using DP.Chess.MAUI.Features.Chess.Cells;
+using DP.Chess.MAUI.Infrastructure;
+
+namespace DP.Chess.MAUI.Features.Chess.Pieces
 {
     /// <summary>
     /// Abstract class representing a chess piece.
@@ -11,7 +15,7 @@
         /// <param name="color">The color of a piece.</param>
         /// <param name="currentPosition">The position of a piece on the board it has at creation.</param>
         /// <param name="symbol">The symbol representing a piece.</param>
-        public ChessPiece(ColorSet color, Position currentPosition, string symbol)
+        public ChessPiece(PlayerColor color, Position currentPosition, string symbol)
         {
             Color = color;
             CurrentPosition = currentPosition;
@@ -21,7 +25,7 @@
         /// <summary>
         /// <inheritdoc/>
         /// </summary>
-        public ColorSet Color { get; }
+        public PlayerColor Color { get; }
 
         /// <summary>
         /// <inheritdoc/>

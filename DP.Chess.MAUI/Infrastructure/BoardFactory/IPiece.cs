@@ -1,4 +1,4 @@
-﻿namespace DP.Chess.MAUI.Features
+﻿namespace DP.Chess.MAUI.Infrastructure.BoardFactory
 {
     /// <summary>
     /// Interface for a piece used in games.
@@ -6,7 +6,7 @@
     public interface IPiece
     {
         /// <summary>
-        /// Gets or sets the piece's <see cref="Position"/> on the game board.
+        /// Gets or sets the piece's <see cref="Position" /> on the game board.
         /// </summary>
         Position CurrentPosition { get; set; }
 

@@ -1,13 +1,15 @@
-﻿using DP.Chess.MAUI.Features.Chess.Pieces;
+﻿using DP.Chess.MAUI.Features.Chess.Cells;
+using DP.Chess.MAUI.Features.Chess.Pieces;
+using DP.Chess.MAUI.Infrastructure;
 using System.Text.Json;
 
-namespace DP.Chess.MAUI.Features.Chess.Services
+namespace DP.Chess.MAUI.Features.Chess
 {
     public class ChessFileService : IChessFileService
     {
         private const string SAVE_FILE_NAME = "design_patterns_chess.json";
 
-        public async Task<(ColorSet currentPlayer, IChessCell[] board)> LoadGame()
+        public async Task<(PlayerColor currentPlayer, IChessCell[] board)> LoadGame()
         {
             string path = @"c:\temp\chess\" + SAVE_FILE_NAME;
 
@@ -20,12 +22,12 @@ namespace DP.Chess.MAUI.Features.Chess.Services
             ChessSerializable deserializedSave =
                 await JsonSerializer.DeserializeAsync<ChessSerializable>(openStream);
 
-            ColorSet currentPlayer = deserializedSave.CurrentPlayer;
+            PlayerColor currentPlayer = deserializedSave.CurrentPlayer;
 
             return (currentPlayer, GetBoardFromSave(deserializedSave));
         }
 
-        public async Task SaveGame(ColorSet currentPlayer, IChessCell[] board)
+        public async Task SaveGame(PlayerColor currentPlayer, IChessCell[] board)
         {
             ChessSerializable cs = new()
             {
@@ -46,12 +48,6 @@ namespace DP.Chess.MAUI.Features.Chess.Services
             await createStream.DisposeAsync();
         }
 
-        // TODO helper?
-        private static int ToBoardIndex(Position position)
-        {
-            return position.Y * 8 + position.X;
-        }
-
         private IChessCell[] GetBoardFromSave(ChessSerializable deserializedSave)
         {
             IChessCell[] cells = new ChessCellModel[8 * 8];
@@ -61,16 +57,16 @@ namespace DP.Chess.MAUI.Features.Chess.Services
                 for (int y = 0; y < 8; y++)
                 {
                     Position position = new(x, y);
-                    cells[ToBoardIndex(position)] = new ChessCellModel(position);
+                    cells[position.ToChessBoardIndex()] = new ChessCellModel(position);
                 }
             }
 
             foreach (ChessPieceSerializable cp in deserializedSave.Pieces)
             {
-                cells[ToBoardIndex(cp.Position)].Piece = GetChessPiece(cp);
+                cells[cp.Position.ToChessBoardIndex()].Piece = GetChessPiece(cp);
             }
 
-            return (cells);
+            return cells;
         }
 
         private IChessPiece GetChessPiece(ChessPieceSerializable cp)
