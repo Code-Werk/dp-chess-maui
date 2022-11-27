@@ -4,29 +4,56 @@ using System.Text.Json;
 
 namespace DP.Chess.MAUI.Features.Chess
 {
+    /// <summary>
+    /// Service containing file I/O logic specific for a game of chess.
+    /// </summary>
     public class ChessFileService : IChessFileService
     {
-        private const string SAVE_FILE_NAME = "design_patterns_chess.json";
+        private readonly PickOptions _filePickerOptions;
 
-        public async Task<(PlayerColor currentPlayer, IList<IChessPiece> pieces)> LoadGame()
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ChessFileService"/> class.
+        /// </summary>
+        public ChessFileService()
         {
-            string path = @"c:\temp\chess\" + SAVE_FILE_NAME;
-
-            if (!File.Exists(path))
+            _filePickerOptions = new()
             {
-                throw new ArgumentException($"save file at path {path} does not exist");
+                FileTypes = new FilePickerFileType(new Dictionary<DevicePlatform, IEnumerable<string>>
+                {
+                    { DevicePlatform.WinUI, new[] {".json", ".txt"} }
+                }),
+            };
+        }
+
+        /// <summary>
+        /// <inheritdoc />
+        /// </summary>
+        public async Task<(PlayerColor currentPlayer, IList<IChessPiece> pieces)?> LoadGame()
+        {
+            FileResult? result = await FilePicker.Default.PickAsync(_filePickerOptions);
+            if (result == null)
+            {
+                return null;
             }
 
-            using FileStream openStream = File.OpenRead(path);
-            ChessSerializable deserializedSave =
-                await JsonSerializer.DeserializeAsync<ChessSerializable>(openStream);
+            using Stream? stream = await result.OpenReadAsync();
+            ChessSerializable? deserializedSave =
+               await JsonSerializer.DeserializeAsync<ChessSerializable>(stream);
+
+            if (deserializedSave == null)
+            {
+                throw new ArgumentException("specified save file could not be opened");
+            }
 
             PlayerColor currentPlayer = deserializedSave.CurrentPlayer;
 
             return (currentPlayer, GetSavedPieces(deserializedSave));
         }
 
-        public async Task SaveGame(PlayerColor currentPlayer, IChessCell[] board)
+        /// <summary>
+        /// <inheritdoc />
+        /// </summary>
+        public async Task<bool> SaveGame(PlayerColor currentPlayer, IChessCell[] board)
         {
             ChessSerializable cs = new()
             {
@@ -34,17 +61,24 @@ namespace DP.Chess.MAUI.Features.Chess
                 Pieces = GetSerializedChessPieces(board)
             };
 
-            string path = @"c:\temp\chess";
-
-            if (!Directory.Exists(path))
+            FileResult? result = await FilePicker.Default.PickAsync(_filePickerOptions);
+            // no save file selected (= saving canceled)
+            if (result == null)
             {
-                Directory.CreateDirectory(path);
+                return true;
+            }
+
+            if (string.IsNullOrEmpty(result.FullPath))
+            {
+                throw new Exception($"cannot open {result.FullPath}");
             }
 
             JsonSerializerOptions options = new() { WriteIndented = true };
-            using FileStream createStream = File.Create(path + "\\" + SAVE_FILE_NAME);
+            using FileStream createStream = File.Create(result.FullPath);
             await JsonSerializer.SerializeAsync(createStream, cs, options);
             await createStream.DisposeAsync();
+
+            return true;
         }
 
         private IChessPiece GetChessPiece(ChessPieceSerializable cp)

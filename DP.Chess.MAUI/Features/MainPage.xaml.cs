@@ -10,7 +10,7 @@ public partial class MainPage : ContentPage
     /// <summary>
     /// Initializes a new instance of the <see cref="MainPage" /> class.
     /// </summary>
-    /// <param name="vm">View model containing UI logic for the <see cref="MainPage" />.</param>
+    /// <param name="boardFactory">Factory interface used to set up a game of chess.</param>
     public MainPage(IBoardFactory boardFactory)
     {
         Content = new ScrollView()

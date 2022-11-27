@@ -2,6 +2,10 @@
 
 namespace DP.Chess.MAUI.Features.Chess
 {
+    /// <summary>
+    /// Class containing a chess piece representation that can be deserialized
+    /// to JSON and written to a save file.
+    /// </summary>
     public class ChessPieceSerializable
     {
         /// <summary>
@@ -19,6 +23,10 @@ namespace DP.Chess.MAUI.Features.Chess
         public string Symbol { get; set; }
     }
 
+    /// <summary>
+    /// Class containing a chess game representation that can be deserialized
+    /// to JSON and written to a save file.
+    /// </summary>
     public class ChessSerializable
     {
         /// <summary>

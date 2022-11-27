@@ -30,7 +30,10 @@ namespace DP.Chess.MAUI.Features.Chess.Boards
         /// <summary>
         /// Initializes a new instance of the <see cref="ChessBoardViewModel" /> class.
         /// </summary>
+        /// <param name="fileService">The service containing the chess file I/O logic.</param>
         /// <param name="movementService">The service containing chess piece movement logic.</param>
+        /// <param name="cells">The cells for the chess board.</param>
+        /// <param name="startingPlayer">The player starting the game.</param>
         public ChessBoardViewModel(IChessFileService fileService,
             IChessBoardMovementService movementService,
             IChessCell[] cells,
@@ -192,12 +195,22 @@ namespace DP.Chess.MAUI.Features.Chess.Boards
 
         private async Task LoadGame()
         {
-            IToast toast = Toast.Make(AppResources.General_GameLoaded_Error, ToastDuration.Long);
+            bool isCanceled = false;
+            IToast toast = Toast.Make(AppResources.General_GameLoaded_Success, ToastDuration.Long);
 
             try
             {
-                (PlayerColor currentPlayer, IList<IChessPiece> pieces) = await _fileService.LoadGame();
+                (PlayerColor currentPlayer, IList<IChessPiece> pieces)? loadResult = await _fileService.LoadGame();
 
+                if (loadResult == null)
+                {
+                    return;
+                }
+
+                (PlayerColor currentPlayer, IList<IChessPiece> pieces) = loadResult.Value;
+
+                PlayerWon = false;
+                WinnerText = string.Empty;
                 CurrentPlayer = currentPlayer;
                 EmptyCells();
 
@@ -208,13 +221,16 @@ namespace DP.Chess.MAUI.Features.Chess.Boards
             }
             catch (Exception)
             {
-                // overwrite the toast on case of an exception
+                // overwrite the toast in case of an exception
                 toast = Toast.Make(AppResources.General_GameLoaded_Error, ToastDuration.Long);
             }
             finally
             {
-                CancellationTokenSource cancellationTokenSource = new();
-                await toast.Show(cancellationTokenSource.Token);
+                if (!isCanceled)
+                {
+                    CancellationTokenSource cancellationTokenSource = new();
+                    await toast.Show(cancellationTokenSource.Token);
+                }
             }
         }
 
@@ -291,25 +307,30 @@ namespace DP.Chess.MAUI.Features.Chess.Boards
         /// a save file.
         /// </summary>
         public ICommand SaveCommand => _saveCommand
-            ??= new AsyncRelayCommand(SaveGame);
+            ??= new AsyncRelayCommand(SaveGame, () => !PlayerWon);
 
         private async Task SaveGame()
         {
+            bool isCanceled = false;
             IToast toast = Toast.Make(AppResources.General_GameSaved_Success, ToastDuration.Long);
 
             try
             {
-                await _fileService.SaveGame(CurrentPlayer, _cells);
+                bool success = await _fileService.SaveGame(CurrentPlayer, _cells);
+                isCanceled = !success;
             }
             catch (Exception)
             {
-                // overwrite the toast on case of an exception
+                // overwrite the toast in case of an exception
                 toast = Toast.Make(AppResources.General_GameSaved_Error, ToastDuration.Long);
             }
             finally
             {
-                CancellationTokenSource cancellationTokenSource = new();
-                await toast.Show(cancellationTokenSource.Token);
+                if (!isCanceled)
+                {
+                    CancellationTokenSource cancellationTokenSource = new();
+                    await toast.Show(cancellationTokenSource.Token);
+                }
             }
         }
 
