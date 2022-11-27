@@ -10,32 +10,34 @@ namespace DP.Chess.MAUI.Features.Chess.Pieces
     public class Rook : ChessPiece, IChessPiece
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="Rook"/> class.
+        /// Initializes a new instance of the <see cref="Rook" /> class.
         /// </summary>
         /// <param name="color">The color of a piece.</param>
-        /// <param name="currentPosition">The position of a piece on the board it has at creation.</param>
+        /// <param name="currentPosition">
+        /// The position of a piece on the board it has at creation.
+        /// </param>
         public Rook(PlayerColor color, Position currentPosition)
             : base(color, currentPosition, "R")
         {
         }
 
         /// <summary>
-        /// <inheritdoc/>
+        /// <inheritdoc />
         /// </summary>
         public override bool CheckTargetPosition(IChessBoard board, IChessCell targetCell)
         {
             bool canMove = true;
             Position targetPosition = targetCell.Position;
-            IChessPiece pieceAtTarget = board[targetPosition].Piece;
+            IChessPiece? pieceAtTarget = board[targetPosition].Piece;
 
-            canMove &= pieceAtTarget == null || Color != pieceAtTarget?.Color;
+            canMove &= pieceAtTarget is null || Color != pieceAtTarget?.Color;
             canMove &= PieceMovementTools.CheckStraightMovement(this, board, targetPosition);
 
             return canMove;
         }
 
         /// <summary>
-        /// <inheritdoc/>
+        /// <inheritdoc />
         /// </summary>
         public override void UpdatePossibleMoveSet()
         {

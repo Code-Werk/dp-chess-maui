@@ -1,5 +1,4 @@
-﻿using DP.Chess.MAUI.Features.Chess;
-using System.Globalization;
+﻿using System.Globalization;
 
 namespace DP.Chess.MAUI.Features.Chess.Converters
 {
@@ -9,9 +8,9 @@ namespace DP.Chess.MAUI.Features.Chess.Converters
     public class ColorSetBackgroundColorConverter : IValueConverter
     {
         /// <summary>
-        /// <inheritdoc/>
+        /// <inheritdoc />
         /// </summary>
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object? Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value is not PlayerColor colorSet)
             {
@@ -27,7 +26,7 @@ namespace DP.Chess.MAUI.Features.Chess.Converters
         }
 
         /// <summary>
-        /// <inheritdoc/>
+        /// <inheritdoc />
         /// </summary>
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {

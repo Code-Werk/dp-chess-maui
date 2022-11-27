@@ -24,14 +24,18 @@ namespace DP.Chess.MAUI.Features.Chess.Boards
         private IChessCell[] _cells;
         private PlayerColor _currentPlayer;
         private bool _playerWon;
-        private IChessPiece _selectedPiece;
+        private IChessPiece? _selectedPiece;
         private string _winnerText;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ChessBoardViewModel" /> class.
         /// </summary>
-        /// <param name="fileService">The service containing the chess file I/O logic.</param>
-        /// <param name="movementService">The service containing chess piece movement logic.</param>
+        /// <param name="fileService">
+        /// The service containing the chess file I/O logic.
+        /// </param>
+        /// <param name="movementService">
+        /// The service containing chess piece movement logic.
+        /// </param>
         /// <param name="cells">The cells for the chess board.</param>
         /// <param name="startingPlayer">The player starting the game.</param>
         public ChessBoardViewModel(IChessFileService fileService,
@@ -43,6 +47,8 @@ namespace DP.Chess.MAUI.Features.Chess.Boards
             _currentPlayer = startingPlayer;
             _fileService = fileService;
             _movementService = movementService;
+
+            _winnerText = string.Empty;
         }
 
         /// <summary>
@@ -110,7 +116,7 @@ namespace DP.Chess.MAUI.Features.Chess.Boards
 
         #region ChessMoveCommand
 
-        private ICommand _chessMoveCommand;
+        private ICommand? _chessMoveCommand;
 
         /// <summary>
         /// Gets the command that is executed to make a chess move (Schachzug)
@@ -120,10 +126,15 @@ namespace DP.Chess.MAUI.Features.Chess.Boards
         /// opponent piece or not.
         /// </summary>
         public ICommand ChessMoveCommand => _chessMoveCommand
-            ??= new RelayCommand<IChessCell>(DoChessMove, (IChessCell _) => !PlayerWon);
+            ??= new RelayCommand<IChessCell>(DoChessMove, (IChessCell? _) => !PlayerWon);
 
-        private void DoChessMove(IChessCell cell)
+        private void DoChessMove(IChessCell? cell)
         {
+            if (cell is null)
+            {
+                return;
+            }
+
             if (_selectedPiece == null
                 && (cell.Piece == null || cell.Piece.Color != CurrentPlayer))
             {
@@ -183,7 +194,7 @@ namespace DP.Chess.MAUI.Features.Chess.Boards
 
         #region LoadCommand
 
-        private ICommand _loadCommand;
+        private ICommand? _loadCommand;
 
         /// <summary>
         /// Gets the command that is executed to load a previously saved game.
@@ -238,7 +249,7 @@ namespace DP.Chess.MAUI.Features.Chess.Boards
 
         #region UndoCommand
 
-        private ICommand _undoCommand;
+        private ICommand? _undoCommand;
 
         /// <summary>
         /// Command that is executed to undo a previously made chess move. It
@@ -256,7 +267,7 @@ namespace DP.Chess.MAUI.Features.Chess.Boards
 
         #region RedoCommand
 
-        private ICommand _redoCommand;
+        private ICommand? _redoCommand;
 
         /// <summary>
         /// Command that is executed to redo a previously undone chess move. It
@@ -274,7 +285,7 @@ namespace DP.Chess.MAUI.Features.Chess.Boards
 
         #region RestartCommand
 
-        private ICommand _restartCommand;
+        private ICommand? _restartCommand;
 
         /// <summary>
         /// Command that is executed to start a new game of chess.
@@ -300,7 +311,7 @@ namespace DP.Chess.MAUI.Features.Chess.Boards
 
         #region SaveCommand
 
-        private ICommand _saveCommand;
+        private ICommand? _saveCommand;
 
         /// <summary>
         /// Command that is executed to save the current state of the board into

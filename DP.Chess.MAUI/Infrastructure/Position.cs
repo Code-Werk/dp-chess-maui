@@ -56,7 +56,7 @@ namespace DP.Chess.MAUI.Infrastructure
         /// </summary>
         /// <param name="o"><inheritdoc /></param>
         /// <returns><inheritdoc /></returns>
-        public override bool Equals([NotNullWhen(true)] object o)
+        public override bool Equals([NotNullWhen(true)] object? o)
         {
             if (o is not Position p) return false;
 

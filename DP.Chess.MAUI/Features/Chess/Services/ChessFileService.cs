@@ -12,7 +12,7 @@ namespace DP.Chess.MAUI.Features.Chess
         private readonly PickOptions _filePickerOptions;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ChessFileService"/> class.
+        /// Initializes a new instance of the <see cref="ChessFileService" /> class.
         /// </summary>
         public ChessFileService()
         {
@@ -55,11 +55,9 @@ namespace DP.Chess.MAUI.Features.Chess
         /// </summary>
         public async Task<bool> SaveGame(PlayerColor currentPlayer, IChessCell[] board)
         {
-            ChessSerializable cs = new()
-            {
-                CurrentPlayer = currentPlayer,
-                Pieces = GetSerializedChessPieces(board)
-            };
+            ChessSerializable cs = new(
+                currentPlayer: currentPlayer,
+                pieces: GetSerializedChessPieces(board));
 
             FileResult? result = await FilePicker.Default.PickAsync(_filePickerOptions);
             // no save file selected (= saving canceled)
@@ -115,12 +113,11 @@ namespace DP.Chess.MAUI.Features.Chess
             {
                 if (c.Piece is IChessPiece piece)
                 {
-                    pieces.Add(new ChessPieceSerializable
-                    {
-                        Color = piece.Color,
-                        Position = piece.CurrentPosition,
-                        Symbol = piece.Symbol
-                    });
+                    pieces.Add(new ChessPieceSerializable(
+                        color: piece.Color,
+                        position: piece.CurrentPosition,
+                        symbol: piece.Symbol
+                    ));
                 }
             }
 

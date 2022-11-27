@@ -10,29 +10,31 @@ namespace DP.Chess.MAUI.Features.Chess.Pieces
     public class Knight : ChessPiece, IChessPiece
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="Knight"/> class.
+        /// Initializes a new instance of the <see cref="Knight" /> class.
         /// </summary>
         /// <param name="color">The color of a piece.</param>
-        /// <param name="currentPosition">The position of a piece on the board it has at creation.</param>
+        /// <param name="currentPosition">
+        /// The position of a piece on the board it has at creation.
+        /// </param>
         public Knight(PlayerColor color, Position currentPosition)
             : base(color, currentPosition, "KN")
         {
         }
 
         /// <summary>
-        /// <inheritdoc/>
+        /// <inheritdoc />
         /// </summary>
         public override bool CheckTargetPosition(IChessBoard board, IChessCell targetCell)
         {
-            IChessPiece pieceAtTarget = board[targetCell.Position].Piece;
+            IChessPiece? pieceAtTarget = board[targetCell.Position].Piece;
 
             // the knight can jump over other pieces in its way, thus we do not
             // need to check for that
-            return pieceAtTarget == null || Color != pieceAtTarget.Color;
+            return pieceAtTarget is null || Color != pieceAtTarget.Color;
         }
 
         /// <summary>
-        /// <inheritdoc/>
+        /// <inheritdoc />
         /// </summary>
         public override void UpdatePossibleMoveSet()
         {

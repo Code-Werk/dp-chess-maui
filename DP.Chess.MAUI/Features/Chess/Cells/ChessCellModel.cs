@@ -12,7 +12,7 @@ namespace DP.Chess.MAUI.Features.Chess.Cells
     public class ChessCellModel : ObservableObject, IChessCell
     {
         private bool _isSelected;
-        private IChessPiece _piece;
+        private IChessPiece? _piece;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ChessCellModel" /> class.
@@ -35,7 +35,7 @@ namespace DP.Chess.MAUI.Features.Chess.Cells
         /// <summary>
         /// <inheritdoc />
         /// </summary>
-        public IChessPiece Piece
+        public IChessPiece? Piece
         {
             get => _piece;
             set => SetProperty(ref _piece, value);

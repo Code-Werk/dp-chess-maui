@@ -10,23 +10,25 @@ namespace DP.Chess.MAUI.Features.Chess.Pieces
     public class Queen : ChessPiece, IChessPiece
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="Queen"/> class.
+        /// Initializes a new instance of the <see cref="Queen" /> class.
         /// </summary>
         /// <param name="color">The color of a piece.</param>
-        /// <param name="currentPosition">The position of a piece on the board it has at creation.</param>
+        /// <param name="currentPosition">
+        /// The position of a piece on the board it has at creation.
+        /// </param>
         public Queen(PlayerColor color, Position currentPosition)
             : base(color, currentPosition, "Q")
         {
         }
 
         /// <summary>
-        /// <inheritdoc/>
+        /// <inheritdoc />
         /// </summary>
         public override bool CheckTargetPosition(IChessBoard board, IChessCell targetCell)
         {
             bool canMove = true;
             Position targetPosition = targetCell.Position;
-            IChessPiece pieceAtTarget = board[targetPosition].Piece;
+            IChessPiece? pieceAtTarget = board[targetPosition].Piece;
 
             canMove &= pieceAtTarget == null || Color != pieceAtTarget.Color;
             if (CurrentPosition.X == targetPosition.X || CurrentPosition.Y == targetPosition.Y)
@@ -42,7 +44,7 @@ namespace DP.Chess.MAUI.Features.Chess.Pieces
         }
 
         /// <summary>
-        /// <inheritdoc/>
+        /// <inheritdoc />
         /// </summary>
         public override void UpdatePossibleMoveSet()
         {

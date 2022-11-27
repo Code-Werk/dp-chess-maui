@@ -10,10 +10,12 @@ namespace DP.Chess.MAUI.Features.Chess.Pieces
     public class Pawn : ChessPiece, IChessPiece
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="Pawn"/> class.
+        /// Initializes a new instance of the <see cref="Pawn" /> class.
         /// </summary>
         /// <param name="color">The color of a piece.</param>
-        /// <param name="currentPosition">The position of a piece on the board it has at creation.</param>
+        /// <param name="currentPosition">
+        /// The position of a piece on the board it has at creation.
+        /// </param>
         public Pawn(PlayerColor color, Position currentPosition)
             : base(color, currentPosition, "P")
         {
@@ -23,17 +25,17 @@ namespace DP.Chess.MAUI.Features.Chess.Pieces
                     || Color == PlayerColor.Black && CurrentPosition.Y == 7;
 
         /// <summary>
-        /// <inheritdoc/>
+        /// <inheritdoc />
         /// </summary>
         public override bool CheckTargetPosition(IChessBoard board, IChessCell targetCell)
         {
             Position targetPosition = targetCell.Position;
-            IChessPiece pieceAtTarget = board[targetPosition].Piece;
+            IChessPiece? pieceAtTarget = board[targetPosition].Piece;
 
             // pawn is moving to take an enemy
             if (targetPosition.X != CurrentPosition.X)
             {
-                return pieceAtTarget != null && Color != pieceAtTarget.Color;
+                return pieceAtTarget is not null && Color != pieceAtTarget.Color;
             }
 
             // normal move
@@ -59,7 +61,7 @@ namespace DP.Chess.MAUI.Features.Chess.Pieces
         }
 
         /// <summary>
-        /// <inheritdoc/>
+        /// <inheritdoc />
         /// </summary>
         public override void UpdatePossibleMoveSet()
         {
