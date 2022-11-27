@@ -138,11 +138,17 @@
   <data name="General_GameLoaded_Success" xml:space="preserve">
     <value>Game loaded successfully!</value>
   </data>
+  <data name="General_GameRedo_Error" xml:space="preserve">
+    <value>No more movement redos possible.</value>
+  </data>
   <data name="General_GameSaved_Error" xml:space="preserve">
     <value>Error while saving the game!</value>
   </data>
   <data name="General_GameSaved_Success" xml:space="preserve">
     <value>Game saved successfully!</value>
+  </data>
+  <data name="General_GameUndo_Error" xml:space="preserve">
+    <value>No more movement undos possible.</value>
   </data>
   <data name="General_InvalidMove_Label" xml:space="preserve">
     <value>Invalid move</value>

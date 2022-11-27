@@ -124,6 +124,15 @@ namespace DP.Chess.MAUI.Resources.I18N {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No more movement redos possible..
+        /// </summary>
+        internal static string General_GameRedo_Error {
+            get {
+                return ResourceManager.GetString("General_GameRedo_Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error while saving the game!.
         /// </summary>
         internal static string General_GameSaved_Error {
@@ -138,6 +147,15 @@ namespace DP.Chess.MAUI.Resources.I18N {
         internal static string General_GameSaved_Success {
             get {
                 return ResourceManager.GetString("General_GameSaved_Success", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No more movement undos possible..
+        /// </summary>
+        internal static string General_GameUndo_Error {
+            get {
+                return ResourceManager.GetString("General_GameUndo_Error", resourceCulture);
             }
         }
         

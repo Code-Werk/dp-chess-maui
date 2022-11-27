@@ -1,7 +1,10 @@
 ﻿using DP.Chess.MAUI.Features;
 using DP.Chess.MAUI.Features.Chess;
 using DP.Chess.MAUI.Features.Chess.Boards;
+using DP.Chess.MAUI.Features.Chess.Boards.Services;
+using DP.Chess.MAUI.Features.Chess.GameState;
 using DP.Chess.MAUI.Infrastructure.BoardFactory;
+using DP.Chess.MAUI.Infrastructure.Memento;
 
 namespace DP.Chess.MAUI.Infrastructure.Services
 {
@@ -29,8 +32,10 @@ namespace DP.Chess.MAUI.Infrastructure.Services
         private static MauiAppBuilder RegisterServices(this MauiAppBuilder mauiAppBuilder)
         {
             mauiAppBuilder.Services.AddTransient<IBoardFactory, ChessBoardFactory>();
+            mauiAppBuilder.Services.AddTransient<IChessBoardCreationService, ChessBoardCreationService>();
             mauiAppBuilder.Services.AddTransient<IChessBoardMovementService, ChessBoardMovementService>();
-            mauiAppBuilder.Services.AddTransient<IChessFileService, ChessFileService>();
+            mauiAppBuilder.Services.AddTransient<IChessGameStateService, ChessGameStateService>();
+            mauiAppBuilder.Services.AddSingleton<IMementoPersistCaretaker<ChessMemento>, MementoJsonFileCaretaker<ChessMemento>>();
 
             return mauiAppBuilder;
         }

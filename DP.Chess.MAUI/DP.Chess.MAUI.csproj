@@ -40,7 +40,6 @@
 		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
 
 		<!-- Images -->
-		<MauiImage Include="Resources\Images\*" />
 
 		<!-- Custom Fonts -->
 		<MauiFont Include="Resources\Fonts\*" />
@@ -51,10 +50,15 @@
 
 	<ItemGroup>
 	  <Compile Remove="Features\Converters\**" />
+	  <Compile Remove="Resources\Images\**" />
 	  <EmbeddedResource Remove="Features\Converters\**" />
+	  <EmbeddedResource Remove="Resources\Images\**" />
 	  <MauiCss Remove="Features\Converters\**" />
+	  <MauiCss Remove="Resources\Images\**" />
 	  <MauiXaml Remove="Features\Converters\**" />
+	  <MauiXaml Remove="Resources\Images\**" />
 	  <None Remove="Features\Converters\**" />
+	  <None Remove="Resources\Images\**" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -74,13 +78,13 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="Features\Chess\Boards\ChessBoardView.xaml">
+	  <MauiXaml Update="Features\Chess\ChessView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Resources\Images\" />
+	  <Folder Include="Features\Chess\Services\" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -100,6 +104,10 @@
 
 	<ItemGroup>
 	  <PRIResource Remove="Features\Converters\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PRIResource Remove="Resources\Images\**" />
 	</ItemGroup>
 
 </Project>
