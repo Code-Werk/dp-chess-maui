@@ -29,6 +29,8 @@ namespace DP.Chess.MAUI.Features.Chess
         /// <summary>
         /// <inheritdoc />
         /// </summary>
+        /// <param name="board"><inheritdoc /></param>
+        /// <returns><inheritdoc /></returns>
         public async Task LoadGame(IChessBoard board)
         {
             bool isCanceled = false;
@@ -57,6 +59,8 @@ namespace DP.Chess.MAUI.Features.Chess
         /// <summary>
         /// <inheritdoc />
         /// </summary>
+        /// <param name="board"><inheritdoc /></param>
+        /// <returns><inheritdoc /></returns>
         public async Task RedoMovement(IChessBoard board)
         {
             ChessMemento? memento = _mementoPersistCaretaker.Redo();
@@ -73,6 +77,8 @@ namespace DP.Chess.MAUI.Features.Chess
         /// <summary>
         /// <inheritdoc />
         /// </summary>
+        /// <param name="board"><inheritdoc /></param>
+        /// <returns><inheritdoc /></returns>
         public async Task SaveGame(IChessBoard board)
         {
             bool isCanceled = false;
@@ -101,6 +107,8 @@ namespace DP.Chess.MAUI.Features.Chess
         /// <summary>
         /// <inheritdoc />
         /// </summary>
+        /// <param name="board"><inheritdoc /></param>
+        /// <returns><inheritdoc /></returns>
         public async Task UndoMovement(IChessBoard board)
         {
             ChessMemento? memento = _mementoPersistCaretaker.Undo();

@@ -14,7 +14,7 @@ namespace DP.Chess.MAUI.Features.Chess.Pieces
         /// </summary>
         /// <param name="color">The color of a piece.</param>
         /// <param name="currentPosition">
-        /// The position of a piece on the board it has at creation.
+        /// The position of a piece on the board that it has after creation.
         /// </param>
         public King(PlayerColor color, Position currentPosition)
             : base(color, currentPosition, "KI")
@@ -24,6 +24,9 @@ namespace DP.Chess.MAUI.Features.Chess.Pieces
         /// <summary>
         /// <inheritdoc />
         /// </summary>
+        /// <param name="board"><inheritdoc /></param>
+        /// <param name="targetCell"><inheritdoc /></param>
+        /// <returns><inheritdoc /></returns>
         public override bool CheckTargetPosition(IChessBoard board, IChessCell targetCell)
         {
             IChessPiece? pieceAtTarget = board[targetCell.Position].Piece;

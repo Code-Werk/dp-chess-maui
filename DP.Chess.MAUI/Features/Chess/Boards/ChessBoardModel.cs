@@ -7,6 +7,11 @@ using System.Collections;
 
 namespace DP.Chess.MAUI.Features.Chess.Boards
 {
+    /// <summary>
+    /// Class representing a chess board. It implements the
+    /// <see cref="ObservableObject" /> class to notify any observers of its
+    /// instances (e.g. the UI).
+    /// </summary>
     public class ChessBoardModel : ObservableObject, IChessBoard
 
     {
@@ -17,6 +22,11 @@ namespace DP.Chess.MAUI.Features.Chess.Boards
         private IChessCell? _selectedCell;
         private string _winnerText;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ChessBoardModel"/> class.
+        /// </summary>
+        /// <param name="cells">The list of cells for the chess board.</param>
+        /// <param name="currentPlayer">The player that can currently make their move.</param>
         public ChessBoardModel(IChessCell[] cells, PlayerColor currentPlayer)
         {
             _cells = cells;
@@ -25,7 +35,7 @@ namespace DP.Chess.MAUI.Features.Chess.Boards
         }
 
         /// <summary>
-        /// Gets or sets the player that is currently making a move.
+        /// <inheritdoc />
         /// </summary>
         public PlayerColor CurrentPlayer
         {
@@ -34,7 +44,7 @@ namespace DP.Chess.MAUI.Features.Chess.Boards
         }
 
         /// <summary>
-        /// Gets or sets the flag to indicate that one of the two players won.
+        /// <inheritdoc />
         /// </summary>
         public bool PlayerWon
         {
@@ -43,7 +53,7 @@ namespace DP.Chess.MAUI.Features.Chess.Boards
         }
 
         /// <summary>
-        /// Gets or sets the cell that is currently selected.
+        /// <inheritdoc />
         /// </summary>
         public IChessCell? SelectedCell
         {
@@ -52,7 +62,7 @@ namespace DP.Chess.MAUI.Features.Chess.Boards
         }
 
         /// <summary>
-        /// Gets or sets the text displaying the winner of the current game.
+        /// <inheritdoc />
         /// </summary>
         public string WinnerText
         {
@@ -90,6 +100,10 @@ namespace DP.Chess.MAUI.Features.Chess.Boards
 
         #region Memento
 
+        /// <summary>
+        /// Method that recreates the state of the chess board from a <see cref="ChessMemento"/>.
+        /// </summary>
+        /// <param name="memento">The memento that should be recreated as the current game state.</param>
         public void RestoreMemento(ChessMemento memento)
         {
             PlayerWon = memento.PlayerWon;
@@ -103,6 +117,10 @@ namespace DP.Chess.MAUI.Features.Chess.Boards
             }
         }
 
+        /// <summary>
+        /// Method that saves the current state of the chess board as <see cref="ChessMemento"/>.
+        /// </summary>
+        /// <returns>The created <see cref="ChessMemento"/>.</returns>
         public ChessMemento SaveMemento()
         {
             return new(

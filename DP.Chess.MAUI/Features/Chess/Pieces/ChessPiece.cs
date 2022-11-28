@@ -49,6 +49,9 @@ namespace DP.Chess.MAUI.Features.Chess.Pieces
         /// <summary>
         /// <inheritdoc />
         /// </summary>
+        /// <param name="board"><inheritdoc /></param>
+        /// <param name="targetCell"><inheritdoc /></param>
+        /// <returns><inheritdoc /></returns>
         public abstract bool CheckTargetPosition(IChessBoard board, IChessCell targetCell);
 
         /// <summary>

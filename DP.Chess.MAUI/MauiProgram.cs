@@ -19,9 +19,9 @@ namespace DP.Chess.MAUI;
 public static class MauiProgram
 {
     /// <summary>
-    /// Static method that creates the MAUI app instance.
+    /// Static method that creates the MAUI application instance.
     /// </summary>
-    /// <returns></returns>
+    /// <returns>The application instance.</returns>
     public static MauiApp CreateMauiApp()
     {
         MauiAppBuilder builder = MauiApp

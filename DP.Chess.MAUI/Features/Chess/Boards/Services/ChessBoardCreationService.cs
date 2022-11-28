@@ -7,17 +7,28 @@ using DP.Chess.MAUI.Infrastructure.Memento;
 namespace DP.Chess.MAUI.Features.Chess.Boards.Services
 {
     /// <summary>
-    /// Class for creating a new chess board.
+    /// Class containing the logic to create chess boards.
     /// </summary>
     public class ChessBoardCreationService : IChessBoardCreationService
     {
         private readonly IMementoPersistCaretaker<ChessMemento> _mementoPersistCaretaker;
 
-        public ChessBoardCreationService(IMementoPersistCaretaker<ChessMemento> mementoPersistCaretaker)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ChessBoardCreationService"/> class.
+        /// </summary>
+        /// <param name="mementoPersistCaretaker">
+        /// The memento used to store the state(s) of a game of chess.
+        /// </param>
+        public ChessBoardCreationService(
+            IMementoPersistCaretaker<ChessMemento> mementoPersistCaretaker)
         {
             _mementoPersistCaretaker = mementoPersistCaretaker;
         }
 
+        /// <summary>
+        /// <inheritdoc />
+        /// </summary>
+        /// <returns><inheritdoc /></returns>
         public IChessBoard CreateChessBoard()
         {
             ChessBoardModel board = new(CreateCells(), PlayerColor.White);
@@ -28,11 +39,11 @@ namespace DP.Chess.MAUI.Features.Chess.Boards.Services
         }
 
         /// <summary>
-        /// Method that creates for each tile in a chessboard of size 8x8 a new
-        /// <see cref="ChessCellModel" /> representing that tile.
+        /// Method that creates a <see cref="ChessCellModel" /> for each tile
+        /// in a chessboard of size 8x8 representing that tile.
         /// </summary>
         /// <returns>
-        /// An array of <see cref="ChessCellModel" /> representing a chess board.
+        /// An array of <see cref="ChessCellModel" />s representing a chess board.
         /// </returns>
         private static ChessCellModel[] CreateCells()
         {

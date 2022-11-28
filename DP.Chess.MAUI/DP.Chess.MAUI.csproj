@@ -49,14 +49,19 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Remove="Features\Chess\Services\**" />
 	  <Compile Remove="Features\Converters\**" />
 	  <Compile Remove="Resources\Images\**" />
+	  <EmbeddedResource Remove="Features\Chess\Services\**" />
 	  <EmbeddedResource Remove="Features\Converters\**" />
 	  <EmbeddedResource Remove="Resources\Images\**" />
+	  <MauiCss Remove="Features\Chess\Services\**" />
 	  <MauiCss Remove="Features\Converters\**" />
 	  <MauiCss Remove="Resources\Images\**" />
+	  <MauiXaml Remove="Features\Chess\Services\**" />
 	  <MauiXaml Remove="Features\Converters\**" />
 	  <MauiXaml Remove="Resources\Images\**" />
+	  <None Remove="Features\Chess\Services\**" />
 	  <None Remove="Features\Converters\**" />
 	  <None Remove="Resources\Images\**" />
 	</ItemGroup>
@@ -84,10 +89,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Features\Chess\Services\" />
-	</ItemGroup>
-
-	<ItemGroup>
 	  <Compile Update="Resources\I18N\AppResources.Designer.cs">
 	    <DesignTime>True</DesignTime>
 	    <AutoGen>True</AutoGen>
@@ -108,6 +109,10 @@
 
 	<ItemGroup>
 	  <PRIResource Remove="Resources\Images\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PRIResource Remove="Features\Chess\Services\**" />
 	</ItemGroup>
 
 </Project>

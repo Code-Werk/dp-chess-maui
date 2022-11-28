@@ -3,14 +3,15 @@
 namespace DP.Chess.MAUI.Infrastructure.Memento
 {
     /// <summary>
-    /// Implementation of a persistent memento caretaker interface, that save
+    /// Implementation of a persistent memento caretaker interface, that saves
     /// the states into a JSON file.
     /// </summary>
-    /// <typeparam name="T">The type of an memento object.</typeparam>
+    /// <typeparam name="T">The type of a memento object.</typeparam>
     public class MementoJsonFileCaretaker<T> : IMementoPersistCaretaker<T>
         where T : IMemento
     {
         private readonly PickOptions _filePickerOptions;
+
         private int _index;
         private IList<T> _mementos;
 
@@ -65,6 +66,8 @@ namespace DP.Chess.MAUI.Infrastructure.Memento
         /// <summary>
         /// <inheritdoc />
         /// </summary>
+        /// <returns><inheritdoc /></returns>
+        /// <exception cref="ArgumentException"></exception>
         public async Task LoadMementos()
         {
             FileResult? result = await FilePicker.Default.PickAsync(_filePickerOptions);
@@ -89,6 +92,7 @@ namespace DP.Chess.MAUI.Infrastructure.Memento
         /// <summary>
         /// <inheritdoc />
         /// </summary>
+        /// <returns><inheritdoc /></returns>
         public T? Redo()
         {
             if (_index + 1 < _mementos.Count)
@@ -102,6 +106,8 @@ namespace DP.Chess.MAUI.Infrastructure.Memento
         /// <summary>
         /// <inheritdoc />
         /// </summary>
+        /// <returns><inheritdoc /></returns>
+        /// <exception cref="Exception"></exception>
         public async Task<bool> SaveMementos()
         {
             FileResult? result = await FilePicker.Default.PickAsync(_filePickerOptions);
@@ -127,6 +133,7 @@ namespace DP.Chess.MAUI.Infrastructure.Memento
         /// <summary>
         /// <inheritdoc />
         /// </summary>
+        /// <returns><inheritdoc /></returns>
         public T? Undo()
         {
             if (_index > 0)

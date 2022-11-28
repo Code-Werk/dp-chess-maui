@@ -2,6 +2,9 @@
 
 namespace DP.Chess.MAUI.Features.Chess
 {
+    /// <summary>
+    /// Class containing extension methods for instances of the <see cref="Position"/> class.
+    /// </summary>
     internal static class ChessPositionExtensions
     {
         /// <summary>

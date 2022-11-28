@@ -6,12 +6,12 @@
     public enum PlayerColor
     {
         /// <summary>
-        /// Color for the player with black figures.
+        /// Color for the player with black chess pieces.
         /// </summary>
         Black = 0,
 
         /// <summary>
-        /// Color for the player with white figures.
+        /// Color for the player with white chess pieces.
         /// </summary>
         White = 1
     }

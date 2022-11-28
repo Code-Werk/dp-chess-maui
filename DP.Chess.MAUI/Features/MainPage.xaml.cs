@@ -16,6 +16,7 @@ public partial class MainPage : ContentPage
         Content = new ScrollView()
         {
             Content = boardFactory.CreateBoard(),
+
             HorizontalOptions = LayoutOptions.Fill,
             VerticalOptions = LayoutOptions.Fill,
         };

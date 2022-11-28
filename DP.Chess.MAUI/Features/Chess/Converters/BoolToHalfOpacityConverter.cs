@@ -8,11 +8,20 @@ namespace DP.Chess.MAUI.Features.Chess.Converters
     /// </summary>
     public class BoolToHalfOpacityConverter : IValueConverter
     {
+        /// <summary>
+        /// Gets or sets the flag if the converter
+        /// should base the conversion on true or false.
+        /// </summary>
         public bool IsInverse { get; set; }
 
         /// <summary>
         /// <inheritdoc />
         /// </summary>
+        /// <param name="value"><inheritdoc /></param>
+        /// <param name="targetType"><inheritdoc /></param>
+        /// <param name="parameter"><inheritdoc /></param>
+        /// <param name="culture"><inheritdoc /></param>
+        /// <returns><inheritdoc /></returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value is bool flag)
@@ -31,6 +40,11 @@ namespace DP.Chess.MAUI.Features.Chess.Converters
         /// <summary>
         /// <inheritdoc />
         /// </summary>
+        /// <param name="value"><inheritdoc /></param>
+        /// <param name="targetType"><inheritdoc /></param>
+        /// <param name="parameter"><inheritdoc /></param>
+        /// <param name="culture"><inheritdoc /></param>
+        /// <returns><inheritdoc /></returns>
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value is not double opacity)

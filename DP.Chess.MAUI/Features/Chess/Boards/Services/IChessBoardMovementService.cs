@@ -3,7 +3,7 @@
 namespace DP.Chess.MAUI.Features.Chess.Boards.Services
 {
     /// <summary>
-    /// Interface for services that contain movement logic specific for chess pieces.
+    /// Interface for services that contain movement logic specific for chess.
     /// </summary>
     public interface IChessBoardMovementService
     {

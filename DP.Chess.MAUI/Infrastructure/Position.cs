@@ -4,7 +4,7 @@ namespace DP.Chess.MAUI.Infrastructure
 {
     /// <summary>
     /// Structure representing a position with x and y coordinates on a game
-    /// board. Starting in the left top corner with 0,0.
+    /// board. Starting in the top left corner with (0,0).
     /// </summary>
     public readonly struct Position
     {

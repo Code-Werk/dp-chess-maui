@@ -9,13 +9,20 @@ using DP.Chess.MAUI.Resources.I18N;
 namespace DP.Chess.MAUI.Features.Chess.Boards.Services
 {
     /// <summary>
-    /// <inheritdoc />
+    /// Class containing movement logic specific for chess.
     /// </summary>
     public class ChessBoardMovementService : IChessBoardMovementService
     {
         private readonly IMementoPersistCaretaker<ChessMemento> _mementoPersistCaretaker;
 
-        public ChessBoardMovementService(IMementoPersistCaretaker<ChessMemento> mementoPersistCaretaker)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ChessBoardMovementService"/> class.
+        /// </summary>
+        /// <param name="mementoPersistCaretaker">
+        /// The memento used to store the state(s) of a game of chess.
+        /// </param>
+        public ChessBoardMovementService(
+            IMementoPersistCaretaker<ChessMemento> mementoPersistCaretaker)
         {
             _mementoPersistCaretaker = mementoPersistCaretaker;
         }
@@ -23,6 +30,8 @@ namespace DP.Chess.MAUI.Features.Chess.Boards.Services
         /// <summary>
         /// <inheritdoc />
         /// </summary>
+        /// <param name="board"><inheritdoc /></param>
+        /// <param name="target"><inheritdoc /></param>
         public void MoveSelectedPiece(IChessBoard board, IChessCell? target)
         {
             if (target is null)

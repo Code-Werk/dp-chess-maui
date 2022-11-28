@@ -5,10 +5,11 @@
     /// caretaker manages multiple states of a specific memento object.
     /// </summary>
     /// <typeparam name="T">The specific type of the memento object.</typeparam>
-    public interface IMementoCaretaker<T> where T : IMemento
+    public interface IMementoCaretaker<T>
+        where T : IMemento
     {
         /// <summary>
-        /// Gets the current state as an memento object.
+        /// Gets the current state as a memento object.
         /// </summary>
         T Current { get; }
 

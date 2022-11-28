@@ -8,7 +8,7 @@ using System.Windows.Input;
 namespace DP.Chess.MAUI.Features.Chess
 {
     /// <summary>
-    /// Class representing a chess board. It implements the
+    /// Class containing the UI logic for <see cref="ChessView"/>. It implements the
     /// <see cref="ObservableObject" /> class to notify any observers of its
     /// instances (e.g. the UI).
     /// </summary>
@@ -30,9 +30,9 @@ namespace DP.Chess.MAUI.Features.Chess
         /// The service containing the chess board movement logic.
         /// </param>
         /// <param name="chessGameStateService">
-        /// The service containing the game state logic.
+        /// The service containing the chess game state logic.
         /// </param>
-        /// <param name="board">The board where the game of chess takes place.</param>
+        /// <param name="board">The board for the game of chess.</param>
         public ChessViewModel(
             IChessBoardCreationService chessBoardCreationService,
             IChessBoardMovementService chessBoardMovementService,
